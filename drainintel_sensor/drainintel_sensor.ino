@@ -47,24 +47,16 @@
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 #include <HTTPClient.h>
+#include "secrets.h"   // WIFI_SSID, WIFI_PASSWORD, API_KEY — copy secrets.h.example -> secrets.h
 
-/* ===================== CONFIG — EDIT THESE ============================== */
+/* ===================== CONFIG ============================================ */
+//
+// Wi-Fi credentials + API key are NOT in this file — they live in secrets.h,
+// which is git-ignored so the password never reaches GitHub.
+// SETUP: copy "secrets.h.example" to "secrets.h" and fill in your values.
 
-// --- Wi-Fi (use a 2.4 GHz network, e.g. a phone hotspot) ---
-const char* WIFI_SSID     = "YOUR_WIFI_NAME";
-const char* WIFI_PASSWORD = "YOUR_WIFI_PASSWORD";
-
-// --- Cloud backend endpoint -----------------------------------------------
-// >>> PASTE YOUR CLOUD URL HERE <<<
-// After deploying the backend to Render/Railway you get a URL like
-//   https://drainintel-xxxx.onrender.com
-// Append "/api/sensor-reading" to it, exactly as shown:
-const char* SERVER_URL = "https://YOUR-APP.onrender.com/api/sensor-reading";
-
-// --- Optional shared secret -----------------------------------------------
-// Leave "" unless you set INGEST_API_KEY in the cloud environment.
-// If you did, paste the SAME value here.
-const char* API_KEY = "";
+// --- Cloud backend endpoint (not secret — safe to keep in the sketch) ---
+const char* SERVER_URL = "https://drainintel.onrender.com/api/sensor-reading";
 
 // --- Identity & timing ----------------------------------------------------
 const char*        SENSOR_ID       = "INFRA-092";  // must match a sensor id in server.js
