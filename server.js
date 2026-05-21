@@ -23,6 +23,7 @@ const cors     = require('cors');
 const path     = require('path');
 const fs       = require('fs');
 const crypto   = require('crypto');
+const { MongoClient } = require('mongodb');
 
 const app    = express();
 const server = http.createServer(app);
@@ -36,6 +37,24 @@ app.use(express.static(__dirname)); // serves HTML files
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'onboarding_splash_screen.html'));
 });
+
+// ════════════════════════════════════════════════════════════
+// MONGODB ATLAS USER DB
+// ════════════════════════════════════════════════════════════
+const MONGO_URI = process.env.MONGO_URI || "ΒΑΛΕ_ΕΔΩ_ΤΟ_CONNECTION_STRING_SOU"; 
+let dbClient, mongoDb;
+
+async function connectDB() {
+  try {
+    dbClient = new MongoClient(MONGO_URI);
+    await dbClient.connect();
+    mongoDb = dbClient.db('drainintel');
+    console.log("📁 Connected to MongoDB Atlas successfully!");
+  } catch (err) {
+    console.error("❌ MongoDB connection error:", err);
+  }
+}
+connectDB();
 
 // ════════════════════════════════════════════════════════════
 // IN-MEMORY DATABASE
@@ -445,43 +464,66 @@ app.get('/api/logs', (req, res) => {
 // AUTH API — simple register / login / me
 // ════════════════════════════════════════════════════════════
 
-// POST /api/auth/register — create an operator account
-app.post('/api/auth/register', (req, res) => {
-  const { name, email, password } = req.body || {};
-  if (typeof name !== 'string' || !name.trim() ||
-      typeof email !== 'string' || !/^\S+@\S+\.\S+$/.test(email) ||
-      typeof password !== 'string' || password.length < 6) {
-    return res.status(400).json({
-      error: 'A name, a valid email, and a password of at least 6 characters are required.'
-    });
+// AUTHENTICATION ENDPOINTS WITH MONGODB
+app.post('/api/auth/register', async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    if (!name || !email || !password) {
+      return res.status(400).json({ error: 'All fields are required' });
+    }
+
+    const usersCollection = mongoDb.collection('users');
+    const existingUser = await usersCollection.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ error: 'User already exists' });
+    }
+
+    const salt = crypto.randomBytes(16).toString('hex');
+    const hashedPassword = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
+
+    const newUser = {
+      id: crypto.randomUUID(),
+      name,
+      email,
+      password: `${salt}:${hashedPassword}`,
+      createdAt: new Date()
+    };
+
+    await usersCollection.insertOne(newUser);
+    
+    // Προσθήκη στο log του server (κρατάμε τη λειτουργικότητα που ήδη είχες)
+    addLog(`New user registered: ${email}`, 'success');
+    
+    res.status(201).json({ success: true, user: { id: newUser.id, name, email } });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error during registration' });
   }
-  const normEmail = email.trim().toLowerCase();
-  if (users.some(u => u.email === normEmail)) {
-    return res.status(409).json({ error: 'An account with that email already exists.' });
-  }
-  const user = { name: name.trim(), email: normEmail, passHash: hashPassword(password) };
-  users.push(user);
-  addLog(`New operator registered: ${user.email}`, 'success');
-  res.status(201).json({
-    token: issueToken(user.email),
-    user:  { name: user.name, email: user.email }
-  });
 });
 
-// POST /api/auth/login — authenticate an operator
-app.post('/api/auth/login', (req, res) => {
-  const { email, password } = req.body || {};
-  if (typeof email !== 'string' || typeof password !== 'string') {
-    return res.status(400).json({ error: 'Email and password are required.' });
+app.post('/api/auth/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const usersCollection = mongoDb.collection('users');
+    const user = await usersCollection.findOne({ email });
+    
+    if (!user) {
+      return res.status(400).json({ error: 'Invalid email or password' });
+    }
+
+    const [salt, storedHash] = user.password.split(':');
+    const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
+
+    if (hash !== storedHash) {
+      return res.status(400).json({ error: 'Invalid email or password' });
+    }
+
+    addLog(`User logged in: ${email}`, 'success');
+    res.json({ success: true, user: { id: user.id, name: user.name, email: user.email } });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error during login' });
   }
-  const user = users.find(u => u.email === email.trim().toLowerCase());
-  if (!user || !verifyPassword(password, user.passHash)) {
-    return res.status(401).json({ error: 'Invalid email or password.' });
-  }
-  res.json({
-    token: issueToken(user.email),
-    user:  { name: user.name, email: user.email }
-  });
 });
 
 // GET /api/auth/me — return the current operator for a Bearer token
