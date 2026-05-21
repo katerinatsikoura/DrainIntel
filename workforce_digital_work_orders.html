@@ -1,0 +1,400 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Workforce &amp; Digital Work Orders | DrainIntel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#3b494c",
+                        "on-secondary-container": "#613400",
+                        "on-tertiary-fixed": "#400009",
+                        "surface-container-low": "#1c1b1b",
+                        "secondary": "#ffb778",
+                        "on-background": "#e5e2e1",
+                        "error-container": "#93000a",
+                        "on-primary": "#00363d",
+                        "primary-container": "#00e5ff",
+                        "on-surface-variant": "#bac9cc",
+                        "tertiary": "#ffe7e6",
+                        "on-secondary-fixed-variant": "#6c3a00",
+                        "on-surface": "#e5e2e1",
+                        "on-tertiary-fixed-variant": "#920021",
+                        "primary": "#c3f5ff",
+                        "secondary-container": "#fd9000",
+                        "primary-fixed": "#9cf0ff",
+                        "inverse-on-surface": "#313030",
+                        "outline": "#849396",
+                        "on-primary-fixed-variant": "#004f58",
+                        "surface-dim": "#131313",
+                        "secondary-fixed": "#ffdcc1",
+                        "surface-container-highest": "#353534",
+                        "on-secondary": "#4c2700",
+                        "on-primary-fixed": "#001f24",
+                        "inverse-surface": "#e5e2e1",
+                        "tertiary-fixed": "#ffdad9",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-bright": "#393939",
+                        "tertiary-fixed-dim": "#ffb3b3",
+                        "surface-variant": "#353534",
+                        "inverse-primary": "#006875",
+                        "on-secondary-fixed": "#2e1500",
+                        "on-primary-container": "#00626e",
+                        "surface-container-lowest": "#0e0e0e",
+                        "primary-fixed-dim": "#00daf3",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#ffb778",
+                        "surface": "#131313",
+                        "tertiary-container": "#ffc1c0",
+                        "on-tertiary": "#680014",
+                        "surface-tint": "#00daf3",
+                        "background": "#131313",
+                        "surface-container": "#201f1f",
+                        "on-tertiary-container": "#b4002b",
+                        "on-error": "#690005",
+                        "error": "#ffb4ab"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "container-margin": "24px",
+                        "gutter": "16px",
+                        "lg": "32px",
+                        "sm": "12px",
+                        "xs": "4px",
+                        "xl": "48px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "mono-data": ["Inter"],
+                        "headline-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "mono-data": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #121212;
+            color: #e5e2e1;
+            font-family: 'Inter', sans-serif;
+        }
+        .glass {
+            background: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .neon-glow-primary {
+            box-shadow: 0 0 12px rgba(0, 218, 243, 0.3);
+        }
+        .neon-glow-error {
+            box-shadow: 0 0 12px rgba(255, 180, 171, 0.3);
+        }
+        .pulse {
+            animation: pulse-animation 2s infinite;
+        }
+        @keyframes pulse-animation {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: #00daf3;
+            box-shadow: 0 0 15px #00daf3;
+            top: 0;
+            left: 0;
+            animation: scan 3s linear infinite;
+        }
+        @keyframes scan {
+            0% { top: 0%; }
+            100% { top: 100%; }
+        }
+    </style>
+</head>
+<body class="dark overflow-hidden">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center h-16 w-full px-container-margin sticky top-0 z-50 bg-surface/80 backdrop-blur-xl border-b border-white/10">
+<div class="flex items-center gap-md">
+<span class="font-headline-md text-headline-md font-bold tracking-tight text-primary-fixed-dim">DrainIntel Enterprise</span>
+</div>
+<div class="flex items-center gap-base">
+<div class="flex items-center gap-xs px-3 py-1 bg-surface-container-high rounded-full border border-white/5">
+<div class="w-2 h-2 rounded-full bg-primary-fixed-dim animate-pulse"></div>
+<span class="font-label-md text-label-md text-primary-fixed-dim">All Systems Normal</span>
+</div>
+<button class="p-2 text-on-surface-variant hover:bg-white/5 transition-colors duration-200 rounded-lg">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-white/5 transition-colors duration-200 rounded-lg">
+<span class="material-symbols-outlined" data-icon="settings_suggest">settings_suggest</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-primary-fixed-dim/20 ml-2">
+<img alt="Operator Profile" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional industrial operation manager in a dark control room setting. The lighting is moody with cool blue highlights from screens reflecting on the face, emphasizing focus and technical expertise. The background is blurred with silhouettes of complex hardware consoles and dimly lit instrumentation panels in a dark mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiVLhflAva7Yz153qUkOzvOZ0_o0v64WmSeKAVhkXSDq5ehzJP9f2VVGlaeeOk_5IQwN4eZn2fyWnc4fsLe3e4pEwVBrMKII2ioEKsr41-cvI3W90hzgg6xGUMRei6WtOh4MZaFlAkY0AkAXuXGfVBxC8dur0w3NblwgNIeomB4lfC3Q68wzw0tV1eYNvm4cif81-B1WQ6cx1kG6PABTbq_fQ9bjVdUuo_wI4W3GV3tWk2t5VTcdD0-3VmTLJBcjztKO4y8E-La26k">
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen w-64 flex flex-col py-6 z-40 border-r border-white/5 bg-surface-container-low pt-20">
+<div class="px-6 mb-8">
+<h1 class="font-headline-sm text-headline-sm font-black text-primary-fixed-dim">DrainIntel</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Enterprise Suite</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-on-surface px-4 py-3 mx-2 transition-all hover:bg-surface-container-high hover:text-primary-fixed rounded-lg group" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="font-label-md text-label-md">Map</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-on-surface px-4 py-3 mx-2 transition-all hover:bg-surface-container-high hover:text-primary-fixed rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings_input_component">settings_input_component</span>
+<span class="font-label-md text-label-md">Operations</span>
+</a>
+<a class="flex items-center gap-3 bg-primary-container text-on-primary-container rounded-lg px-4 py-3 mx-2 shadow-[0_0_12px_rgba(0,229,255,0.2)]" href="#">
+<span class="material-symbols-outlined" data-icon="engineering" style="font-variation-settings: 'FILL' 1;">engineering</span>
+<span class="font-label-md text-label-md">Workforce</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-on-surface px-4 py-3 mx-2 transition-all hover:bg-surface-container-high hover:text-primary-fixed rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="query_stats">query_stats</span>
+<span class="font-label-md text-label-md">Analytics</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-on-surface px-4 py-3 mx-2 transition-all hover:bg-surface-container-high hover:text-primary-fixed rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<div class="px-4 mb-4">
+<button class="w-full py-3 bg-primary-fixed-dim text-on-primary-fixed font-bold rounded-lg flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="report_problem">report_problem</span>
+<span>Report Incident</span>
+</button>
+</div>
+<div class="mt-auto border-t border-white/5 pt-4">
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-on-surface px-4 py-2 mx-2" href="#">
+<span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-on-surface px-4 py-2 mx-2" href="#">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+<span class="font-label-md text-label-md">Logs</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="ml-64 p-md h-[calc(100vh-64px)] overflow-hidden">
+<div class="grid grid-cols-12 gap-gutter h-full">
+<!-- Left Panel: Digital Work Order Management -->
+<section class="col-span-5 flex flex-col h-full bg-surface-container-low border border-white/5 rounded-xl overflow-hidden">
+<div class="p-md border-b border-white/5 bg-surface-container">
+<div class="flex justify-between items-center mb-xs">
+<h2 class="font-headline-sm text-headline-sm text-primary-fixed-dim">Work Orders</h2>
+<span class="font-label-md text-label-md px-2 py-1 bg-primary-container/20 text-primary-fixed-dim rounded-full">12 Active</span>
+</div>
+<div class="relative mt-base">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-2 pl-10 pr-4 text-body-md focus:border-primary-fixed-dim focus:ring-1 focus:ring-primary-fixed-dim outline-none transition-all" placeholder="Search orders, teams, or locations..." type="text">
+</div>
+</div>
+<div class="flex-1 overflow-y-auto p-md space-y-gutter custom-scrollbar">
+<!-- Critical Active Task -->
+<div class="p-md rounded-lg bg-surface-container-high border-l-4 border-error neon-glow-error group cursor-pointer hover:bg-surface-container-highest transition-all">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary-fixed transition-colors">Emergency Cleaning: Main St</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span>
+                                    Zone A4 - Sub-sector 12
+                                </p>
+</div>
+<span class="bg-error/10 text-error border border-error/20 font-label-md text-label-md px-2 py-1 rounded flex items-center gap-1">
+<div class="w-1.5 h-1.5 rounded-full bg-error pulse"></div>
+                                Urgent
+                            </span>
+</div>
+<div class="flex items-center justify-between mt-md">
+<div class="flex items-center gap-2">
+<img alt="Team Alpha" class="w-6 h-6 rounded-full border border-white/10" data-alt="Group of diverse engineering professionals in high-visibility gear working together in a high-tech field environment. The scene is lit by the warm glow of professional safety equipment against a dark industrial background. The atmosphere is collaborative and high-stakes, fitting a mission-critical utility workforce management application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIhJBYKEd1gcr_biEOmz1hbaBvMGc3wwK4sDD0yHxyQ8rWe9w3iphZBjl-HWozPeimKVinun2Ewo-4i9gdL1_yFMTqcYg0Mo2D7zKukJfcib0_rflkTTQnoNJO277GhY_aoT1BXDzAJWgKWSdbL10BxoSNVDZmzwBCOBdF0veHJxH-Mn2SXZ8XoUIWharvtY2VIDEV8ByABcnGsIJbvkk3Pc1PlVdjNOk6_AlhCbshPi22-GmE8CKzADGn1epf4YkrF6ortgFlcSO8">
+<span class="font-label-md text-label-md text-on-surface-variant">Team Alpha</span>
+</div>
+<span class="font-label-md text-label-md text-primary-fixed-dim flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="sync">sync</span>
+                                In Progress
+                            </span>
+</div>
+</div>
+<!-- Task 2 -->
+<div class="p-md rounded-lg bg-surface-container-high border border-white/5 group cursor-pointer hover:bg-surface-container-highest transition-all">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Sensor Recalibration: Sector 8</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span>
+                                    Harbor District - Pit #22
+                                </p>
+</div>
+<span class="bg-secondary-container/20 text-secondary border border-secondary/20 font-label-md text-label-md px-2 py-1 rounded">Scheduled</span>
+</div>
+<div class="flex items-center justify-between mt-md">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center border border-white/10 text-on-surface-variant font-label-md">B</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Team Beta</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">ETA: 14:00</span>
+</div>
+</div>
+<!-- Task 3 -->
+<div class="p-md rounded-lg bg-surface-container-high border border-white/5 opacity-80 hover:opacity-100 transition-all">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Structural Inspection</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Midtown Conduit Cluster</p>
+</div>
+<span class="bg-primary-container/10 text-primary-fixed-dim border border-primary-fixed-dim/20 font-label-md text-label-md px-2 py-1 rounded">Assigned</span>
+</div>
+</div>
+<!-- Task 4 -->
+<div class="p-md rounded-lg bg-surface-container-high border border-white/5 opacity-80">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Sluice Gate Maintenance</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Industrial Waterfront</p>
+</div>
+<span class="bg-primary-container/10 text-primary-fixed-dim border border-primary-fixed-dim/20 font-label-md text-label-md px-2 py-1 rounded">Assigned</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Panel: Verification Panel -->
+<section class="col-span-7 grid grid-rows-12 gap-gutter h-full">
+<!-- QR Scanner Area -->
+<div class="row-span-7 bg-surface-container-low border border-white/5 rounded-xl flex flex-col overflow-hidden glass relative">
+<div class="p-md flex justify-between items-center bg-surface-container">
+<h2 class="font-headline-sm text-headline-sm text-primary-fixed-dim flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="qr_code_scanner">qr_code_scanner</span>
+                            Verification Panel
+                        </h2>
+<div class="flex items-center gap-base">
+<span class="font-label-md text-label-md text-on-surface-variant">Scanner: Active</span>
+<div class="w-2 h-2 rounded-full bg-primary pulse"></div>
+</div>
+</div>
+<div class="flex-1 flex flex-col items-center justify-center p-xl relative overflow-hidden">
+<!-- Simulated QR Scanner UI -->
+<div class="w-64 h-64 border-2 border-primary-fixed-dim/30 rounded-2xl relative flex items-center justify-center bg-black/40">
+<div class="scan-line"></div>
+<!-- Corners for scanner feel -->
+<div class="absolute -top-1 -left-1 w-8 h-8 border-t-4 border-l-4 border-primary-fixed-dim"></div>
+<div class="absolute -top-1 -right-1 w-8 h-8 border-t-4 border-r-4 border-primary-fixed-dim"></div>
+<div class="absolute -bottom-1 -left-1 w-8 h-8 border-b-4 border-l-4 border-primary-fixed-dim"></div>
+<div class="absolute -bottom-1 -right-1 w-8 h-8 border-b-4 border-r-4 border-primary-fixed-dim"></div>
+<span class="material-symbols-outlined text-[120px] text-primary-fixed-dim/20" data-icon="qr_code_2">qr_code_2</span>
+</div>
+<div class="mt-xl text-center max-w-md">
+<p class="font-headline-sm text-headline-sm text-on-surface mb-2">Awaiting Field Authentication</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Task Completion Process: Field team scans manhole QR or presses 'Done' -&gt; IoT sensor feedback loop auto-verifies 0% water level before closure.</p>
+</div>
+<!-- Telemetry Overlay (Aesthetic) -->
+<div class="absolute bottom-4 right-4 flex flex-col items-end gap-1 opacity-40">
+<span class="font-mono-data text-label-md text-primary">LAT: 51.5074° N</span>
+<span class="font-mono-data text-label-md text-primary">LNG: 0.1278° W</span>
+<span class="font-mono-data text-label-md text-primary">SIG: 94% [ESTABLISHED]</span>
+</div>
+</div>
+</div>
+<!-- IoT Feedback Loop / Sensor Data -->
+<div class="row-span-5 bg-surface-container-low border border-white/5 rounded-xl p-md flex flex-col">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-md flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="sensors">sensors</span>
+                        Real-time Sensor Loop Verification
+                    </h3>
+<div class="grid grid-cols-3 gap-md flex-1">
+<!-- Sensor Card 1 -->
+<div class="bg-surface-container-lowest p-md rounded-lg border border-white/5 flex flex-col justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant">Water Level</span>
+<div class="my-base flex items-end gap-2">
+<span class="font-display-lg text-display-lg text-primary-fixed-dim">0%</span>
+<span class="font-label-md text-label-md text-primary-fixed-dim mb-2">VERIFIED</span>
+</div>
+<div class="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden">
+<div class="bg-primary-fixed-dim h-full" style="width: 2%;"></div>
+</div>
+</div>
+<!-- Sensor Card 2 -->
+<div class="bg-surface-container-lowest p-md rounded-lg border border-white/5 flex flex-col justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant">Methane Concentration</span>
+<div class="my-base flex items-end gap-2">
+<span class="font-display-lg text-display-lg text-on-surface">2.4</span>
+<span class="font-label-md text-label-md text-on-surface-variant mb-2">PPM</span>
+</div>
+<div class="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden">
+<div class="bg-secondary-container h-full" style="width: 15%;"></div>
+</div>
+</div>
+<!-- Sensor Card 3 -->
+<div class="bg-surface-container-lowest p-md rounded-lg border border-white/5 flex flex-col justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant">Hatch Status</span>
+<div class="my-base flex items-center gap-3">
+<span class="material-symbols-outlined text-[48px] text-error" data-icon="lock_open">lock_open</span>
+<span class="font-headline-sm text-headline-sm text-error">OPEN</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant">Closure locked until dry</p>
+</div>
+</div>
+<div class="mt-md pt-md border-t border-white/5 flex justify-between items-center">
+<div class="flex items-center gap-gutter">
+<div class="flex items-center gap-base">
+<div class="w-2 h-2 rounded-full bg-primary-fixed-dim"></div>
+<span class="font-label-md text-label-md text-on-surface-variant">Sensor: SN-4921-X</span>
+</div>
+<div class="flex items-center gap-base">
+<div class="w-2 h-2 rounded-full bg-primary-fixed-dim"></div>
+<span class="font-label-md text-label-md text-on-surface-variant">Last Update: 1.4s ago</span>
+</div>
+</div>
+<button class="bg-white/5 hover:bg-white/10 text-on-surface px-4 py-2 rounded-lg font-label-md text-label-md border border-white/10 transition-all active:scale-95">
+                            Manual Overide
+                        </button>
+</div>
+</div>
+</section>
+</div>
+</main>
+<script>
+        // Simple micro-interaction for task selection
+        const tasks = document.querySelectorAll('.group.cursor-pointer');
+        tasks.forEach(task => {
+            task.addEventListener('click', () => {
+                tasks.forEach(t => t.classList.remove('neon-glow-primary', 'bg-surface-container-highest'));
+                task.classList.add('neon-glow-primary', 'bg-surface-container-highest');
+            });
+        });
+    </script>
+</body></html>

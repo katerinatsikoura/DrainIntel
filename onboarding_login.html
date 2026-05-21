@@ -1,0 +1,268 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Login | DrainIntel Enterprise</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "surface-bright": "#393939",
+                  "background": "#131313",
+                  "tertiary-fixed-dim": "#ffb3b3",
+                  "surface-container": "#201f1f",
+                  "surface-container-high": "#2a2a2a",
+                  "on-primary": "#00363d",
+                  "on-secondary": "#4c2700",
+                  "surface-container-lowest": "#0e0e0e",
+                  "inverse-surface": "#e5e2e1",
+                  "on-tertiary-container": "#b4002b",
+                  "on-background": "#e5e2e1",
+                  "secondary-fixed": "#ffdcc1",
+                  "primary-fixed": "#9cf0ff",
+                  "on-secondary-container": "#613400",
+                  "outline-variant": "#3b494c",
+                  "secondary": "#ffb778",
+                  "on-secondary-fixed": "#2e1500",
+                  "on-primary-fixed": "#001f24",
+                  "tertiary-fixed": "#ffdad9",
+                  "secondary-container": "#fd9000",
+                  "on-error-container": "#ffdad6",
+                  "on-tertiary-fixed": "#400009",
+                  "on-tertiary-fixed-variant": "#920021",
+                  "inverse-primary": "#006875",
+                  "surface-tint": "#00daf3",
+                  "error-container": "#93000a",
+                  "primary-fixed-dim": "#00daf3",
+                  "on-error": "#690005",
+                  "surface": "#131313",
+                  "on-surface-variant": "#bac9cc",
+                  "on-surface": "#e5e2e1",
+                  "inverse-on-surface": "#313030",
+                  "on-primary-container": "#00626e",
+                  "on-secondary-fixed-variant": "#6c3a00",
+                  "outline": "#849396",
+                  "error": "#ffb4ab",
+                  "surface-container-low": "#1c1b1b",
+                  "primary": "#c3f5ff",
+                  "secondary-fixed-dim": "#ffb778",
+                  "on-primary-fixed-variant": "#004f58",
+                  "tertiary-container": "#ffc1c0",
+                  "on-tertiary": "#680014",
+                  "surface-dim": "#131313",
+                  "surface-container-highest": "#353534",
+                  "tertiary": "#ffe7e6",
+                  "surface-variant": "#353534",
+                  "primary-container": "#00e5ff"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.125rem",
+                  "lg": "0.25rem",
+                  "xl": "0.5rem",
+                  "full": "0.75rem"
+          },
+          "spacing": {
+                  "sm": "12px",
+                  "xl": "48px",
+                  "xs": "4px",
+                  "base": "8px",
+                  "lg": "32px",
+                  "md": "24px",
+                  "gutter": "16px",
+                  "container-margin": "24px"
+          },
+          "fontFamily": {
+                  "display-lg": ["Inter"],
+                  "mono-data": ["Inter"],
+                  "label-md": ["Inter"],
+                  "headline-lg": ["Inter"],
+                  "body-md": ["Inter"],
+                  "body-lg": ["Inter"],
+                  "headline-sm": ["Inter"],
+                  "headline-md": ["Inter"]
+          },
+          "fontSize": {
+                  "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                  "mono-data": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                  "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                  "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                  "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                  "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                  "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                  "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      background-color: #020617;
+      color: #e5e2e1;
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    .glass-effect {
+      background: rgba(30, 30, 30, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .neon-glow:focus {
+      box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+      border-color: #00e5ff !important;
+    }
+
+    .hero-overlay {
+      background: linear-gradient(to right, rgba(2, 6, 23, 0.1) 0%, rgba(2, 6, 23, 0.9) 100%);
+    }
+
+    .btn-pulse:hover {
+      animation: pulse-glow 2s infinite;
+    }
+
+    @keyframes pulse-glow {
+      0% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(0, 229, 255, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0); }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex">
+<!-- Left Side: Hero Image & Branding -->
+<section class="hidden lg:flex lg:w-3/5 relative overflow-hidden">
+<img alt="Municipal Control Room" class="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4hEHCocSgK18gchRe8OK1fV7Srnj1dLwPSCVicxt1e_Wf9DJtHNj35rM-C3CCdMvE8W5efl06EitO7HJ-vGbc24j_s6CzOGITSotDkcQWLpCV_nH7SZk4PdAd5U2nMNqYyMZ_78Ca-2hpIb1Eifi5xia2gDq9H8DZE-dwsH4Fqq-P7m981YrUJntGeohrKwT30y7gpvhsAJHaj4qThUoGOnvAXm0DsnuiZREh_0DaFwmopzaQLfQitODaL4nn_A33fsge1QynbPJ-">
+<div class="absolute inset-0 hero-overlay"></div>
+<div class="relative z-10 p-xl flex flex-col justify-between h-full w-full">
+<div class="flex items-center gap-sm">
+<img alt="DrainIntel Logo" class="h-10 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtvcphhFJKLIxGOQvq2IxvXSBPewN5bhQEUZacHidj1yVeMJ6NNrdXo7w-HdLS0MSWEMk8fiQmih6GSqC01Lo_SFe4i8buzitqnHv8-C57aurP4rTPOQ-qUq9jJDlHh5E2bbLKho6LP_knjecUTSRIwvT7iP48lYkXvyeTwaBBj17HePp8Cgh12e4Ij51Dm1Cxas2F9roKiB2bz44wyXzXJFe2yrF2Mj257tv70vC1dQsZKLUIw_Q9iSkW_1YRcVIVv5cE9QPaC0de">
+<span class="font-headline-md text-headline-md text-white tracking-tight">DrainIntel</span>
+</div>
+<div class="max-w-2xl">
+<div class="inline-flex items-center gap-xs px-base py-xs bg-primary-container/20 border border-primary-container/30 rounded-lg mb-md">
+<span class="material-symbols-outlined text-primary-container text-sm">security</span>
+<span class="font-label-md text-label-md text-primary-container uppercase tracking-widest">Enterprise Mission Control</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-white mb-base leading-[1.1]">
+          Predictive Infrastructure <span class="text-primary-container">Intelligence</span>.
+        </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg">
+          Real-time subterranean telemetry for resilient cities. Monitor, analyze, and mitigate urban water risks with the world's most advanced drainage digital twin.
+        </p>
+</div>
+<div class="flex gap-lg border-t border-white/10 pt-lg">
+<div>
+<p class="font-mono-data text-mono-data text-primary-container">LIVE STATUS</p>
+<p class="font-headline-sm text-headline-sm text-white">99.98% Uptime</p>
+</div>
+<div>
+<p class="font-mono-data text-mono-data text-primary-container">SENSORS ONLINE</p>
+<p class="font-headline-sm text-headline-sm text-white">12,482 Units</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Side: Login Form -->
+<section class="w-full lg:w-2/5 flex flex-col justify-center items-center px-container-margin bg-[#020617] relative">
+<!-- Mobile Logo Header -->
+<div class="lg:hidden absolute top-xl left-container-margin flex items-center gap-sm">
+<img alt="DrainIntel Logo" class="h-8 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtvcphhFJKLIxGOQvq2IxvXSBPewN5bhQEUZacHidj1yVeMJ6NNrdXo7w-HdLS0MSWEMk8fiQmih6GSqC01Lo_SFe4i8buzitqnHv8-C57aurP4rTPOQ-qUq9jJDlHh5E2bbLKho6LP_knjecUTSRIwvT7iP48lYkXvyeTwaBBj17HePp8Cgh12e4Ij51Dm1Cxas2F9roKiB2bz44wyXzXJFe2yrF2Mj257tv70vC1dQsZKLUIw_Q9iSkW_1YRcVIVv5cE9QPaC0de">
+<span class="font-headline-sm text-headline-sm text-white">DrainIntel</span>
+</div>
+<div class="w-full max-w-md">
+<header class="mb-xl">
+<h2 class="font-headline-lg text-headline-lg text-white mb-xs">Operator Login</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Access the municipal monitoring dashboard.</p>
+</header>
+<form class="space-y-md" onsubmit="return false;">
+<!-- Email Input -->
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant flex justify-between" for="email">
+            EMAIL ADDRESS
+            <span class="text-primary-container/60">Required</span>
+</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary-container transition-colors">alternate_email</span>
+<input class="w-full h-14 pl-xl pr-md bg-surface-container-lowest border border-outline-variant rounded-lg text-white placeholder:text-outline focus:outline-none neon-glow transition-all duration-200" id="email" placeholder="operator@city.gov" type="email">
+</div>
+</div>
+<!-- Password Input -->
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant flex justify-between" for="password">
+            ACCESS PASSWORD
+            <a class="text-primary-container hover:underline" href="#">Forgot?</a>
+</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary-container transition-colors">lock</span>
+<input class="w-full h-14 pl-xl pr-md bg-surface-container-lowest border border-outline-variant rounded-lg text-white placeholder:text-outline focus:outline-none neon-glow transition-all duration-200" id="password" placeholder="••••••••••••" type="password">
+</div>
+</div>
+<!-- Security Check / MFA Mock -->
+<div class="p-sm glass-effect rounded-lg flex items-center gap-sm">
+<div class="h-10 w-10 rounded bg-primary-container/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container">shield_with_heart</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-white">Biometric Auth Active</p>
+<p class="text-[10px] text-on-surface-variant leading-none">Encrypted SSO connection established.</p>
+</div>
+<div class="ml-auto">
+<div class="w-10 h-5 bg-surface-container-high rounded-full relative p-[2px]">
+<div class="w-4 h-4 bg-primary-container rounded-full shadow-sm translate-x-5"></div>
+</div>
+</div>
+</div>
+<!-- Submit Button -->
+<button class="w-full h-14 bg-primary-container text-on-primary font-headline-sm text-headline-sm rounded-lg hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-sm btn-pulse">
+          Secure Login
+          <span class="material-symbols-outlined">login</span>
+</button>
+</form>
+<footer class="mt-xl text-center space-y-md">
+<p class="font-body-md text-body-md text-on-surface-variant">
+          New terminal activation? 
+          <a class="text-primary-container font-semibold hover:underline" href="#">Register Device</a>
+</p>
+<div class="pt-lg border-t border-outline-variant flex justify-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-white cursor-help" title="System Documentation">help_center</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-white cursor-help" title="Network Security Settings">language</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-white cursor-help" title="Operational Support">support_agent</span>
+</div>
+</footer>
+</div>
+<!-- Background Decorative Elements -->
+<div class="absolute bottom-0 right-0 p-lg opacity-10 pointer-events-none">
+<span class="font-mono-data text-[120px] leading-none select-none font-black text-white">DI-ENT</span>
+</div>
+</section>
+<script>
+    // Micro-interaction for button press effect and glow follow
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginBtn = document.querySelector('.btn-pulse');
+      loginBtn.addEventListener('mousedown', () => {
+        loginBtn.style.transform = 'scale(0.97)';
+      });
+      loginBtn.addEventListener('mouseup', () => {
+        loginBtn.style.transform = 'scale(1)';
+      });
+
+      // Simple mouse track for a subtle background glow on the login side
+      const loginSection = document.querySelector('section:nth-child(2)');
+      loginSection.addEventListener('mousemove', (e) => {
+        const x = e.clientX - loginSection.getBoundingClientRect().left;
+        const y = e.clientY;
+        loginSection.style.backgroundImage = `radial-gradient(circle at ${x}px ${y}px, rgba(0, 229, 255, 0.03) 0%, transparent 40%)`;
+      });
+    });
+  </script>
+</body></html>

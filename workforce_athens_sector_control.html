@@ -1,0 +1,394 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>DrainIntel Enterprise | Workforce Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #e5e2e1;
+            overflow: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glow-cyan {
+            box-shadow: 0 0 12px rgba(0, 229, 255, 0.2);
+        }
+        .glow-success {
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+        }
+        .pulse-orange {
+            animation: pulse-orange 2s infinite;
+        }
+        @keyframes pulse-orange {
+            0% { box-shadow: 0 0 0 0 rgba(253, 144, 0, 0.4); }
+            70% { box-shadow: 0 0 0 8px rgba(253, 144, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(253, 144, 0, 0); }
+        }
+        /* Custom scrollbar for high-density feel */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #131313; }
+        ::-webkit-scrollbar-thumb { background: #3b494c; border-radius: 2px; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#131313",
+                        "tertiary-container": "#ffc1c0",
+                        "on-tertiary": "#680014",
+                        "on-secondary-fixed-variant": "#6c3a00",
+                        "on-primary-container": "#00626e",
+                        "on-surface": "#e5e2e1",
+                        "outline-variant": "#3b494c",
+                        "on-error-container": "#ffdad6",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-bright": "#393939",
+                        "on-secondary": "#4c2700",
+                        "on-secondary-fixed": "#2e1500",
+                        "secondary": "#ffb778",
+                        "on-primary": "#00363d",
+                        "inverse-on-surface": "#313030",
+                        "surface-container-highest": "#353534",
+                        "tertiary-fixed": "#ffdad9",
+                        "on-tertiary-fixed": "#400009",
+                        "inverse-primary": "#006875",
+                        "on-primary-fixed": "#001f24",
+                        "on-tertiary-container": "#b4002b",
+                        "on-secondary-container": "#613400",
+                        "primary-container": "#00e5ff",
+                        "surface-container-lowest": "#0e0e0e",
+                        "secondary-fixed": "#ffdcc1",
+                        "tertiary": "#ffe7e6",
+                        "surface-tint": "#00daf3",
+                        "on-primary-fixed-variant": "#004f58",
+                        "surface-container": "#201f1f",
+                        "on-error": "#690005",
+                        "error-container": "#93000a",
+                        "surface-container-low": "#1c1b1b",
+                        "on-tertiary-fixed-variant": "#920021",
+                        "outline": "#849396",
+                        "surface-variant": "#353534",
+                        "secondary-container": "#fd9000",
+                        "primary-fixed-dim": "#00daf3",
+                        "primary-fixed": "#9cf0ff",
+                        "secondary-fixed-dim": "#ffb778",
+                        "tertiary-fixed-dim": "#ffb3b3",
+                        "surface": "#131313",
+                        "on-background": "#e5e2e1",
+                        "error": "#ffb4ab",
+                        "background": "#131313",
+                        "surface-container-high": "#2a2a2a",
+                        "primary": "#c3f5ff",
+                        "on-surface-variant": "#bac9cc"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "container-margin": "24px",
+                        "lg": "32px",
+                        "xl": "48px",
+                        "md": "24px",
+                        "xs": "4px",
+                        "sm": "12px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "mono-data": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "mono-data": ["14px", { "lineHeight": "20px", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface h-screen flex flex-col overflow-hidden">
+<!-- Top Navigation Bar (Shared Component Strategy) -->
+<header class="flex justify-between items-center h-16 w-full px-container-margin sticky top-0 z-50 bg-surface/80 backdrop-blur-xl border-b border-white/10">
+<div class="flex items-center gap-6">
+<span class="font-headline-md text-headline-md font-bold tracking-tight text-primary-fixed-dim">DrainIntel Enterprise</span>
+<div class="hidden md:flex items-center gap-base px-sm py-xs bg-surface-container rounded border border-outline-variant">
+<span class="material-symbols-outlined text-primary-fixed-dim text-[18px]">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-label-md font-label-md w-64 placeholder:text-on-surface-variant" placeholder="Search operations..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-sm px-sm py-xs bg-primary-container/10 border border-primary-container/20 rounded-full">
+<div class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></div>
+<span class="font-label-md text-label-md text-primary-container">All Systems Normal</span>
+</div>
+<div class="flex items-center gap-sm">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-on-surface transition-colors">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-on-surface transition-colors">settings_suggest</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant">
+
+</div>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- Side Navigation Bar (Shared Component Strategy) -->
+<aside class="fixed left-0 top-0 h-screen w-64 flex flex-col py-6 z-40 bg-surface-container border-r border-white/5">
+<div class="px-container-margin mb-xl">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary-fixed-dim text-[32px]">waves</span>
+<div>
+<div class="font-headline-sm text-headline-sm font-black text-primary-fixed-dim leading-none">DrainIntel</div>
+<div class="font-label-md text-label-md text-on-surface-variant opacity-60">Enterprise Suite</div>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-base">
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-on-surface px-4 py-3 mx-2 transition-all hover:bg-white/5" href="network_view_with_analytics_deep_link.html">
+<span class="material-symbols-outlined">map</span>
+<span class="font-label-md text-label-md">Map</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-on-surface px-4 py-3 mx-2 transition-all hover:bg-white/5" href="operations_prioritized_maintenance_alert_feed.html">
+<span class="material-symbols-outlined">settings_input_component</span>
+<span class="font-label-md text-label-md">Operations</span>
+</a>
+<a class="flex items-center gap-3 bg-primary-container text-on-primary-container rounded-lg px-4 py-3 mx-2 shadow-[0_0_12px_rgba(0,229,255,0.2)]" href="workforce_athens_sector_control.html">
+<span class="material-symbols-outlined">engineering</span>
+<span class="font-label-md text-label-md font-bold">Workforce</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-on-surface px-4 py-3 mx-2 transition-all hover:bg-white/5" href="historical_data_mitigation_analytics.html">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="font-label-md text-label-md">Analytics</span>
+</a>
+</nav>
+<div class="px-2 mt-auto">
+<button class="w-full flex items-center justify-center gap-2 bg-error-container text-on-error-container font-bold py-3 rounded-lg hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">emergency_home</span>
+<span class="font-label-md text-label-md">Report Incident</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 flex flex-col overflow-hidden relative">
+<!-- Background Map Context (GIS Overlay Feel) -->
+<div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
+<img class="w-full h-full object-cover grayscale invert" data-alt="A dark-themed satellite map of a dense urban environment like Athens, featuring glowing blue data lines representing subterranean pipe networks. The aesthetic is highly technical, with a desaturated charcoal palette and sharp neon blue accents indicating flow direction and sensor locations. The lighting mimics a digital twin interface." data-location="Athens" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDh6kRqiJK2K_yVbPu8_nO5UgfQGRUP8ldhS_ahoYr7P8lGkVjLwSiA6a3YUCpZG1qk2q3m_A_Q7nrRPu5Eg5YDkDWTP-ApoSgCcjHRPQU_3xqI39E0WL5ClmCVBc9MNvxgqPkx0qaAWUmVKDbmQiZAtRhpBCyze_MHZL4It0EVw2wJ6NAi236CGs61b3vtjTm__nrsq4C6Kyl-FmpbxFFjLS7fSSmJymSaTnVjgaRpld0orWbsPastvnevkkUAU4kXIforsDZW0HcO">
+</div>
+<div class="relative z-10 flex h-full p-gutter gap-gutter overflow-hidden">
+<!-- Central Column: Active Work Orders -->
+<section class="flex-[1.2] flex flex-col gap-gutter overflow-hidden">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed-dim">assignment_turned_in</span>
+                            Active Work Orders
+                        </h2>
+<span class="font-label-md text-label-md px-2 py-1 bg-surface-container-highest rounded border border-outline-variant">4 Records Active</span>
+</div>
+<div class="flex-1 overflow-y-auto pr-2 space-y-gutter">
+<!-- Priority Card -->
+<div class="glass-panel p-md rounded-xl border-l-4 border-secondary-container">
+<div class="flex justify-between items-start mb-base">
+<div>
+<div class="font-label-md text-label-md text-secondary-container font-bold mb-xs">HIGH PRIORITY • #WO-7721</div>
+<h3 class="font-headline-sm text-headline-sm">Emergency Cleaning: Sector A-12 (Syntagma)</h3>
+</div>
+<div class="flex items-center gap-2 px-3 py-1 bg-secondary-container/20 text-secondary-container rounded-full pulse-orange">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+<span class="font-label-md text-label-md font-bold uppercase">In Progress</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-md mt-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant">group</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Assigned</p>
+<p class="font-body-md text-body-md font-medium">Team Alpha</p>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant">schedule</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Elapsed Time</p>
+<p class="font-body-md text-body-md font-medium">01:42:15</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="glass-panel p-md rounded-xl">
+<div class="flex justify-between items-start mb-base">
+<div>
+<div class="font-label-md text-label-md text-primary-fixed-dim font-bold mb-xs">ROUTINE • #WO-7725</div>
+<h3 class="font-headline-sm text-headline-sm">Sensor Recalibration: Sector B-04 (Peristeri)</h3>
+</div>
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container-highest text-on-surface-variant rounded-full border border-outline-variant">
+<span class="font-label-md text-label-md font-bold uppercase">Scheduled</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-md mt-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant">group</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Assigned</p>
+<p class="font-body-md text-body-md font-medium">Team Beta</p>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant">calendar_today</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Start Time</p>
+<p class="font-body-md text-body-md font-medium">14:00 PM</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="glass-panel p-md rounded-xl">
+<div class="flex justify-between items-start mb-base">
+<div>
+<div class="font-label-md text-label-md text-tertiary-fixed-dim font-bold mb-xs">INVESTIGATION • #WO-7728</div>
+<h3 class="font-headline-sm text-headline-sm">Sewage Odor &amp; Gas Investigation: Sector C-07 (Kypseli)</h3>
+</div>
+<div class="flex items-center gap-2 px-3 py-1 bg-primary-container/10 text-primary-container rounded-full border border-primary-container/20">
+<span class="font-label-md text-label-md font-bold uppercase">Assigned</span>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="glass-panel p-md rounded-xl">
+<div class="flex justify-between items-start mb-base">
+<div>
+<div class="font-label-md text-label-md text-on-surface-variant font-bold mb-xs">MAINTENANCE • #WO-7730</div>
+<h3 class="font-headline-sm text-headline-sm">Debris &amp; Leaf Removal: Inlet A-45 (Glyfada)</h3>
+</div>
+<div class="flex items-center gap-2 px-3 py-1 bg-primary-container/10 text-primary-container rounded-full border border-primary-container/20">
+<span class="font-label-md text-label-md font-bold uppercase">Assigned</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column: Monitoring & Actions -->
+<section class="flex-[0.8] flex flex-col gap-gutter overflow-hidden">
+<!-- Field Authentication Status -->
+<div class="glass-panel rounded-xl p-md flex flex-col gap-md">
+<h3 class="font-headline-sm text-headline-sm border-b border-white/10 pb-sm">Field Authentication Status</h3>
+<div class="flex items-center gap-md p-md bg-surface-container rounded-lg border border-outline-variant">
+<div class="bg-white p-2 rounded">
+<span class="material-symbols-outlined text-surface-dim text-[48px]">qr_code_2</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-primary-fixed-dim font-bold">QR Scan Verified</p>
+<p class="font-body-md text-body-md opacity-80">via Field Mobile App</p>
+</div>
+</div>
+<div class="space-y-sm">
+<div class="flex justify-between items-center py-xs border-b border-white/5">
+<span class="font-label-md text-label-md text-on-surface-variant">Precise Coordinates</span>
+<span class="font-mono-data text-mono-data text-primary-fixed-dim">LAT: 37.9838° N, LNG: 23.7275° E</span>
+</div>
+<div class="flex justify-between items-center py-xs border-b border-white/5">
+<span class="font-label-md text-label-md text-on-surface-variant">Device ID</span>
+<span class="font-mono-data text-mono-data">DX-FIELD-ALPHA-01</span>
+</div>
+</div>
+<div class="bg-primary-container/5 p-sm rounded border border-primary-container/10 italic text-on-surface-variant font-body-md">
+                            "Awaiting completion signal from Team Alpha at Syntagma Square"
+                        </div>
+</div>
+<!-- Real-Time Sensor Loop -->
+<div class="glass-panel rounded-xl p-md flex flex-col gap-md">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm">Telemetry Loop</h3>
+<span class="flex h-2 w-2 rounded-full bg-primary-container"></span>
+</div>
+<div class="space-y-sm">
+<!-- Sensor 1 -->
+<div class="flex items-center justify-between p-sm bg-surface-container-low rounded border border-outline-variant">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary-fixed-dim">water_drop</span>
+<span class="font-label-md text-label-md">Water Level</span>
+</div>
+<span class="font-mono-data text-mono-data font-bold text-primary-fixed-dim">0% VERIFIED</span>
+</div>
+<!-- Sensor 2 -->
+<div class="flex items-center justify-between p-sm bg-surface-container-low rounded border border-outline-variant">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary-fixed">gas_meter</span>
+<span class="font-label-md text-label-md">Methane Concentration</span>
+</div>
+<span class="font-mono-data text-mono-data font-bold text-secondary-fixed">2.4 PPM (Safe)</span>
+</div>
+<!-- Sensor 3 -->
+<div class="flex items-center justify-between p-sm bg-surface-container-low rounded border border-outline-variant">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary-fixed-dim">door_front</span>
+<span class="font-label-md text-label-md">Manhole Status</span>
+</div>
+<span class="font-mono-data text-mono-data font-bold text-primary-container">OPEN (System Active)</span>
+</div>
+</div>
+</div>
+<!-- Primary Action Button -->
+<div class="mt-auto">
+<button class="w-full group relative overflow-hidden bg-primary-container py-xl rounded-xl shadow-[0_0_30px_rgba(0,229,255,0.4)] transition-all hover:scale-[1.02] active:scale-95">
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_2s_infinite]"></div>
+<div class="flex flex-col items-center justify-center gap-2">
+<span class="material-symbols-outlined text-on-primary-container font-black text-[32px]">task_alt</span>
+<span class="font-headline-sm text-headline-sm font-black text-on-primary-container tracking-wider">CONFIRM &amp; CLOSE WORK ORDER</span>
+</div>
+</button>
+</div>
+</section>
+</div>
+</main>
+</div>
+<style>
+        @keyframes shimmer {
+            100% { transform: translateX(100%); }
+        }
+    </style>
+<script>
+        // Micro-interaction for telemetry loop simulation
+        const sensors = document.querySelectorAll('.font-mono-data');
+        setInterval(() => {
+            sensors.forEach(sensor => {
+                if (sensor.textContent.includes('PPM')) {
+                    const current = parseFloat(sensor.textContent);
+                    const variation = (Math.random() - 0.5) * 0.2;
+                    sensor.textContent = (current + variation).toFixed(1) + ' PPM (Safe)';
+                }
+            });
+        }, 3000);
+    </script>
+
+
+</body></html>
