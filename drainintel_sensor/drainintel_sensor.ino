@@ -20,13 +20,13 @@
  * 2) WIRING  (HC-SR04  ->  ESP32-S3)
  *    HC-SR04 VCC   ->  ESP32-S3 5V  (USB 5V / VBUS pin) — HC-SR04 needs 5V.
  *    HC-SR04 GND   ->  ESP32-S3 GND
- *    HC-SR04 TRIG  ->  GPIO 5       (3.3V output is fine for TRIG)
- *    HC-SR04 ECHO  ->  GPIO 4  ***THROUGH A VOLTAGE DIVIDER***
+ *    HC-SR04 TRIG  ->  GPIO 4       (3.3V output is fine for TRIG)
+ *    HC-SR04 ECHO  ->  GPIO 5  ***THROUGH A VOLTAGE DIVIDER***
  *
  *    >>> IMPORTANT: HC-SR04 ECHO outputs 5V. ESP32-S3 GPIO pins are 3.3V
  *        ONLY — feeding 5V in can damage the pin. Drop it with a divider:
  *
- *            ECHO ---[ R1 = 1k ]---+--- GPIO 4
+ *            ECHO ---[ R1 = 1k ]---+--- GPIO 5
  *                                  |
  *                                [ R2 = 2k ]
  *                                  |
@@ -70,9 +70,9 @@ const char* API_KEY = "";
 const char*        SENSOR_ID       = "INFRA-092";  // must match a sensor id in server.js
 const unsigned int POST_INTERVAL_MS = 5000;        // send a reading every 5 s
 
-// --- HC-SR04 pins (any free GPIO; avoid strapping pins 0/3/45/46) ---------
-const int TRIG_PIN = 5;
-const int ECHO_PIN = 4;
+// --- HC-SR04 pins — match the collaborator's existing board wiring --------
+const int TRIG_PIN = 4;
+const int ECHO_PIN = 5;
 
 /* ======================================================================== */
 
