@@ -146,8 +146,11 @@
 <!-- Success Canvas -->
 <main class="relative z-10 w-full max-w-4xl px-container-margin py-xl flex flex-col items-center text-center">
 <!-- Hero Branding -->
-<div class="mb-lg opacity-0 animate-[fadeIn_1s_ease-out_forwards]">
-<img alt="DrainIntel Logo" class="h-24 mx-auto drop-shadow-2xl" data-alt="A clean high-resolution digital logo for DrainIntel. The logo features a stylized dark blue water drop containing a bright cyan wireless signal icon, positioned above a metallic grey circular storm drain grate with a single glowing green central sensor dot. The brand name 'DrainIntel' is written below in a modern sans-serif font, with 'Drain' in charcoal and 'Intel' in a vibrant tech-blue." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxlat-8brPaatDSxVBiFdhUhHdgQKVhoXgHEq-CNUwd2mn91mJK7Du6SXFbZcAFDtgHHN1OsD_U-ZynjiKubbbUB-V-DtLyX3bUySTw7WO3CuJwfsWKUUfZ5OtLPnKXsy_mFZCHV_KZdj4HVDlb40KziVEDhD19nT9oXXnfECWPDSj3kiUgypaBR7Yt2gcaq8w_JUbyRUiJ4YMKaN1f6PbJDXLusqdOahqpRGj6Frj-UpttSG0TJ-rcmf3lC-x94a3ybt5zqstwkmS">
+<div class="mb-lg opacity-0 animate-[fadeIn_1s_ease-out_forwards] flex justify-center">
+    <div class="relative">
+        <div class="absolute inset-0 bg-primary-container/20 blur-2xl rounded-full scale-125"></div>
+        <img alt="DrainIntel Logo" class="relative w-32 h-32 object-contain drop-shadow-2xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxlat-8brPaatDSxVBiFdhUhHdgQKVhoXgHEq-CNUwd2mn91mJK7Du6SXFbZcAFDtgHHN1OsD_U-ZynjiKubbbUB-V-DtLyX3bUySTw7WO3CuJwfsWKUUfZ5OtLPnKXsy_mFZCHV_KZdj4HVDlb40KziVEDhD19nT9oXXnfECWPDSj3kiUgypaBR7Yt2gcaq8w_JUbyRUiJ4YMKaN1f6PbJDXLusqdOahqpRGj6Frj-UpttSG0TJ-rcmf3lC-x94a3ybt5zqstwkmS">
+    </div>
 </div>
 <!-- Success Indicator -->
 <div class="relative mb-xl">
@@ -264,7 +267,7 @@
           card.style.setProperty('--mouse-y', `${y}px`);
         });
       });
-      
+
       // Dynamic scaling for "Mission Control" feel
       document.querySelectorAll('.glass-panel').forEach(card => {
         card.addEventListener('mousemove', (e) => {
