@@ -1,0 +1,294 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Municipality Selection | DrainIntel Enterprise</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-tint": "#00daf3",
+                    "tertiary-fixed": "#ffdad9",
+                    "on-error": "#690005",
+                    "tertiary-fixed-dim": "#ffb3b3",
+                    "inverse-on-surface": "#313030",
+                    "outline-variant": "#3b494c",
+                    "surface-bright": "#393939",
+                    "on-tertiary-container": "#b4002b",
+                    "on-primary-fixed": "#001f24",
+                    "primary-fixed": "#9cf0ff",
+                    "tertiary": "#ffe7e6",
+                    "surface-container-lowest": "#0e0e0e",
+                    "primary-fixed-dim": "#00daf3",
+                    "on-tertiary": "#680014",
+                    "on-surface-variant": "#bac9cc",
+                    "on-secondary": "#4c2700",
+                    "tertiary-container": "#ffc1c0",
+                    "surface-container": "#201f1f",
+                    "error": "#ffb4ab",
+                    "on-tertiary-fixed": "#400009",
+                    "surface-dim": "#131313",
+                    "on-primary-fixed-variant": "#004f58",
+                    "on-secondary-container": "#613400",
+                    "error-container": "#93000a",
+                    "on-secondary-fixed-variant": "#6c3a00",
+                    "inverse-surface": "#e5e2e1",
+                    "surface-container-high": "#2a2a2a",
+                    "on-background": "#e5e2e1",
+                    "outline": "#849396",
+                    "secondary": "#ffb778",
+                    "primary": "#c3f5ff",
+                    "surface-container-highest": "#353534",
+                    "surface": "#131313",
+                    "secondary-fixed-dim": "#ffb778",
+                    "primary-container": "#00e5ff",
+                    "on-error-container": "#ffdad6",
+                    "background": "#131313",
+                    "on-tertiary-fixed-variant": "#920021",
+                    "secondary-fixed": "#ffdcc1",
+                    "secondary-container": "#fd9000",
+                    "on-secondary-fixed": "#2e1500",
+                    "on-primary": "#00363d",
+                    "on-surface": "#e5e2e1",
+                    "on-primary-container": "#00626e",
+                    "inverse-primary": "#006875",
+                    "surface-variant": "#353534",
+                    "surface-container-low": "#1c1b1b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "lg": "32px",
+                    "gutter": "16px",
+                    "container-margin": "24px",
+                    "xs": "4px",
+                    "sm": "12px",
+                    "md": "24px",
+                    "xl": "48px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "mono-data": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "mono-data": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .glass-panel {
+            background: rgba(30, 30, 30, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .mission-glow {
+            box-shadow: 0 0 20px rgba(0, 218, 243, 0.3);
+        }
+        .scanline {
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 218, 243, 0.05) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 0.4; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+        .animate-pulse-ring {
+            animation: pulse-ring 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md text-body-md overflow-hidden h-screen w-screen selection:bg-primary-container selection:text-on-primary-container">
+<!-- Background GIS Layer -->
+<div class="fixed inset-0 z-0 bg-[#0a0a0a]">
+<img class="w-full h-full object-cover opacity-40 mix-blend-luminosity grayscale contrast-125" data-alt="A highly detailed aerial satellite view of a major European city at night, showcasing a dense urban grid illuminated by glowing streetlights and arterial roads. The color palette is dominated by deep obsidian blacks and midnight blues, with veins of vibrant cyan and electric blue representing data overlays. The visual style is cinematic and technical, resembling a high-tech mission control GIS interface with sharp detail and atmospheric depth." data-location="Athens" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjLPN79SOEy-BauqEYZ6jwaifMrlU6qZ7LnaNGGPn8fPjTIpjtQ0S_QR-JpNP5B2-9aqLrNdePWpCy60mwsInCxoFGIYlaP6jFZWACj3zL6By1mKK4y7uSihaDH_EV-zBo-zmPKgxlV0FCygMRQA2AhNNPBqooEGpxxsN4FUNwJcH1CkSmNkZBp3KMJlwjuAI5m4DIYtJaKoCnt62EJ5qAR-88o2MFd3a4eVaLdPt7U5Cezs810namZWUr4oPgke1WxlLpE4Eka9su">
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/50"></div>
+<div class="absolute inset-0 scanline opacity-20"></div>
+</div>
+<!-- Top Navigation Shell -->
+<header class="flex justify-between items-center h-16 w-full px-container-margin sticky top-0 z-50 bg-surface/80 backdrop-blur-xl border-b border-white/10">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md font-bold tracking-tight text-primary-fixed-dim">DrainIntel Enterprise</span>
+<div class="h-6 w-[1px] bg-white/10 mx-2"></div>
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-surface-tint animate-pulse"></span>
+                SYSTEM READY
+            </span>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary-fixed-dim transition-colors">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary-fixed-dim transition-colors">settings_suggest</button>
+</div>
+<div class="flex items-center gap-3 pl-4 border-l border-white/10">
+<div class="text-right">
+<p class="font-label-md text-label-md text-on-surface">Operator 042</p>
+<p class="text-[10px] text-on-surface-variant tracking-widest uppercase">Lead Engineer</p>
+</div>
+<div class="w-10 h-10 rounded-full border border-primary-fixed-dim/30 overflow-hidden">
+<img alt="Operator Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBizaAMBnYZL5FHzKLmKEUyYZ10E1oVowZPcJYfPgY_0glOqX0qUWqLYVTp0rBv2rUb3UrtfqFuL53Fn38luC_vbOThSnJR26e_0_D7KVbnqqAkSTc4wEqmUB5N7amjCjEWlj6raO9x42jWJVON57eo2SbpXbH-Thl2bb7gt3kKnMDbwaKVnedUZsOiPYjXu0pxHPNQ8Q6b5Nd54X5npwz1_2_ePeyfL-3QwY-ELMiuTCF8-6L8XAn7l1X1owq9CaMiq2459L0LK-9K">
+</div>
+</div>
+</div>
+</header>
+<!-- Main Selection UI -->
+<main class="relative z-10 h-[calc(100vh-64px)] flex flex-col items-center justify-center px-container-margin">
+<!-- Selection Card -->
+<div class="w-full max-w-2xl glass-panel rounded-xl p-lg relative overflow-hidden group">
+<!-- Decorative Accent -->
+<div class="absolute top-0 left-0 w-1 h-full bg-primary-container"></div>
+<div class="space-y-md">
+<header class="space-y-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed-dim" style="font-variation-settings: 'FILL' 1;">location_city</span>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Select Jurisdiction</h1>
+</div>
+<p class="text-on-surface-variant font-body-lg text-body-lg">Select a municipality to initialize the real-time drainage telemetry and critical infrastructure dashboard.</p>
+</header>
+<!-- Search/Dropdown Input -->
+<div class="space-y-sm">
+<div class="relative">
+  <span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant">location_on</span>
+  
+  <select class="w-full h-14 bg-surface-container-lowest border border-white/10 rounded-lg pl-12 pr-12 text-on-surface font-body-lg focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all appearance-none cursor-pointer">
+    <option value="" disabled selected>Select a municipality...</option>
+    <option value="athens" class="bg-surface-container-lowest text-on-surface">Municipality of Athens</option>
+    <option value="piraeus" class="bg-surface-container-lowest text-on-surface">Municipality of Piraeus</option>
+    <option value="kallithea" class="bg-surface-container-lowest text-on-surface">Municipality of Kallithea</option>
+    <option value="moschato" class="bg-surface-container-lowest text-on-surface">Municipality of Moschato-Tavros</option>
+  </select>
+
+  <span class="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+<!-- Quick Select Tags -->
+<div class="flex flex-wrap gap-2 pt-2">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider block w-full mb-1">Recent Sectors</span>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-high border border-white/5 text-on-surface-variant font-label-md text-label-md hover:bg-white/5 hover:text-primary-fixed-dim transition-all">Municipality of Athens</button>
+
+
+</div>
+</div>
+<!-- Launch Section -->
+
+<div class="pt-4">
+  <button id="launchBtn" class="w-full flex items-center justify-center gap-2 px-6 py-4 bg-primary-container text-on-primary-container font-headline-sm hover:brightness-110 active:scale-[0.98] transition-all rounded-lg mission-glow group/btn">
+    <span class="font-bold uppercase tracking-wider">Confirm and Continue</span>
+    <span class="material-symbols-outlined group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+  </button>
+</div></div>
+</div>
+<!-- Atmospheric Floating Data Points -->
+<div class="absolute bottom-12 left-12 space-y-4 hidden lg:block">
+
+
+</div>
+<!-- System Coordinates (Purely Decorative) -->
+<div class="absolute top-12 right-12 hidden xl:block">
+<div class="font-mono-data text-mono-data text-on-surface-variant/40 space-y-1">
+
+
+
+</div>
+</div>
+</main>
+<!-- Side Map Legend / Stats (Minimalist) -->
+<div class="fixed right-container-margin top-1/2 -translate-y-1/2 z-10 flex flex-col gap-gutter">
+<div class="flex flex-col items-center gap-2">
+<div class="w-1 h-8 bg-primary-container/30 rounded-full overflow-hidden">
+<div class="w-full h-1/2 bg-primary-container"></div>
+</div>
+
+</div>
+</div>
+<!-- Status Footer -->
+<footer class="fixed bottom-0 left-0 w-full h-10 bg-surface-container-lowest border-t border-white/5 px-container-margin flex items-center justify-between z-50">
+<div class="flex gap-4 items-center">
+
+
+</div>
+<div class="font-mono-data text-[10px] text-on-surface-variant/60">
+            © 2026 DRAININTEL ENTERPRISE SOLUTIONS
+        </div>
+</footer>
+<script>
+    document.getElementById('launchBtn').addEventListener('click', function() {
+        
+        const selectEl = document.querySelector('select');
+        
+        if (!selectEl.value) {
+            alert('Please select a municipality first!');
+            return;
+        }
+
+        const selectedText = selectEl.options[selectEl.selectedIndex].text;
+        
+        localStorage.setItem('savedMunicipality', selectedText);
+
+        this.innerHTML = `
+            <span class="animate-spin material-symbols-outlined">sync</span>
+            Initializing...
+        `;
+        this.classList.add('opacity-80', 'scale-95');
+        
+        setTimeout(() => {
+            window.location.href = 'onboarding_success.html'; 
+        }, 1200);
+    });
+
+        // Dropdown Input Animation
+        const selectDropdown = document.querySelector('select');
+        if (selectDropdown) {
+            selectDropdown.addEventListener('focus', () => {
+            selectDropdown.parentElement.parentElement.classList.add('scale-[1.01]');
+            });
+            selectDropdown.addEventListener('blur', () => {
+            selectDropdown.parentElement.parentElement.classList.remove('scale-[1.01]');
+            });
+        }
+
+        // Atmospheric mouse glow effect
+        document.addEventListener('mousemove', (e) => {
+            const glow = document.createElement('div');
+            // This is just a conceptual micro-interaction, usually would use a single persistent element
+            // for performance, but adding a subtle trace effect for demo purposes.
+        });
+    </script>
+
+
+</body></html>

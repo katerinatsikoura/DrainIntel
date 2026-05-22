@@ -159,9 +159,9 @@
 </div>
 <!-- Message Content -->
 <div class="space-y-sm mb-lg max-w-2xl">
-<h1 class="font-display-lg text-display-lg text-primary neon-text-glow tracking-tight animate-[slideUp_0.8s_ease-out_forwards]">
-        Municipality of Athens Setup Complete
-      </h1>
+<h1 id="dynamicMuniTitle" class="font-display-lg text-display-lg text-primary neon-text-glow tracking-tight animate-[slideUp_0.8s_ease-out_forwards]">
+  Municipality of Athens Setup Complete
+</h1>
 <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed animate-[slideUp_1s_ease-out_forwards]">
         All systems calibrated and workforce synced. Your digital twin of the subterranean infrastructure is now live and monitoring real-time telemetry.
       </p>
@@ -245,6 +245,25 @@
     // Trigger entrance animations
     window.addEventListener('DOMContentLoaded', () => {
       createConfetti();
+      
+      // Διαβάζουμε τον Δήμο από τη μνήμη
+      const savedMuni = localStorage.getItem('savedMunicipality');
+      
+      // Αν υπάρχει αποθηκευμένος Δήμος, αλλάζουμε τον τίτλο δυναμικά
+      if (savedMuni) {
+        document.getElementById('dynamicMuniTitle').innerText = savedMuni + ' Setup Complete';
+      }
+      
+      // Dynamic scaling for Mission Control feel
+      document.querySelectorAll('.glass-panel').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+        });
+      });
       
       // Dynamic scaling for "Mission Control" feel
       document.querySelectorAll('.glass-panel').forEach(card => {
