@@ -159,19 +159,14 @@ Firmware: **`drainintel_sensor/drainintel_sensor.ino`** — άνοιξέ το σ
 | `package.json` | Dependencies (`express`, `ws`, `cors`) |
 | `drainintel_sensor/drainintel_sensor.ino` | Firmware ESP32-S3 + HC-SR04 |
 | `onboarding_splash_screen.html` | Splash / αρχική (`/`) |
-| `onboarding_unified_centered_login.html` | Login |
+| `onboarding_login.html` | Login |
 | `onboarding_registration.html` | Register |
-| `onboarding_step_1_map_sync.html` … `_step_3_workforce_setup.html` | Setup wizard (3 βήματα) |
+| `onboarding_municipality_select.html` | Select Municipality |
 | `onboarding_success.html` | Ολοκλήρωση setup |
 | `network_view_with_analytics_deep_link.html` | **Live dashboard** (συνδεδεμένο με τον αισθητήρα) |
 | `operations_prioritized_maintenance_alert_feed.html` | Λίστα συντήρησης (στατικό mockup) |
 | `historical_data_mitigation_analytics.html` | Analytics (στατικό mockup) |
 | `workforce_athens_sector_control.html` | Workforce (στατικό mockup) |
-| `workforce_verification_feedback_loop.html` | Επαλήθευση συνεργείου (στατικό mockup) |
-
-> Υπάρχουν και κάποια παλιότερα αρχεία HTML (π.χ. `drainintel_enterprise_dashboard.html`)
-> που δεν χρησιμοποιούνται πλέον στη ροή — οι 12 παραπάνω σελίδες είναι οι ενεργές.
-
 ---
 
 ## Troubleshooting

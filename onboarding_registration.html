@@ -264,7 +264,7 @@
                 if (!res.ok) throw new Error(data.error || 'Registration failed');
                 localStorage.setItem('di_token', data.token);
                 localStorage.setItem('di_user', JSON.stringify(data.user));
-                location.replace('onboarding_step_1_map_sync.html');
+                location.replace('onboarding_municipality_select.html');
             } catch (err) {
                 errEl.textContent = err.message;
                 errEl.classList.remove('hidden');
