@@ -2,18 +2,6 @@
  * DrainIntel Enterprise — Backend Server
  * Node.js + Express + WebSocket
  *
- * HOW TO RUN:
- *   1. npm install
- *   2. npm start            (or: npm run dev)
- *   3. Open http://localhost:3000/onboarding_splash_screen.html in browser
- *
- * REAL SENSOR INTEGRATION:
- *   Real ESP32 devices POST live readings to  POST /api/sensor-reading.
- *   The moment a sensor reports real data, its simulation is frozen so the
- *   live value is never overwritten. See simulateSensors() + the endpoint.
- *
- * CLOUD DEPLOYMENT:
- *   Listens on process.env.PORT (set by Render/Railway) and falls back to 3000.
  */
 
 const express  = require('express');
@@ -325,11 +313,33 @@ app.get('/api/sensors/:id', (req, res) => {
   res.json(enrichSensor(s));
 });
 
-// GET /api/historical/:id — last 24h history
-app.get('/api/historical/:id', (req, res) => {
-  const s = db.sensors.find(x => x.id === req.params.id);
+// GET /api/historical/:id - sensor history
+app.get('/api/historical/:id', async (req, res) => {
+  const sensorId = req.params.id;
+  const s = db.sensors.find(x => x.id === sensorId);
   if (!s) return res.status(404).json({ error: 'Not found' });
-  res.json({ sensorId: s.id, sector: s.sector, history: s.history });
+
+  // 1. Αν ο αισθητήρας είναι πραγματικός και έχει στείλει δεδομένα, διαβάζουμε από τη MongoDB
+  if (s.isReal) {
+    try {
+      const telemetryCollection = mongoDb.collection('telemetry');
+      
+      const history = await telemetryCollection
+        .find({ sensorId: sensorId })
+        .sort({ timestamp: -1 })
+        .limit(150)
+        .toArray();
+
+      // Αντιστρέφουμε τη σειρά για τη σωστή ροή του γραφήματος (παλιά αριστερά -> νέα δεξιά)
+      return res.json({ sensorId: s.id, sector: s.sector, history: history.reverse() });
+    } catch (err) {
+      console.error("Σφάλμα ανάγνωσης ιστορικού από MongoDB:", err);
+      return res.status(500).json({ error: 'Could not fetch history from database' });
+    }
+  } 
+  
+  // 2. Αν είναι ακόμα σε κατάσταση προσομοίωσης, επιστρέφουμε το τοπικό ιστορικό του server
+  return res.json({ sensorId: s.id, sector: s.sector, history: s.history });
 });
 
 // ════════════════════════════════════════════════════════════
@@ -345,7 +355,7 @@ app.get('/api/historical/:id', (req, res) => {
 const INGEST_API_KEY = process.env.INGEST_API_KEY || '';
 
 // POST /api/sensor-reading — live reading from a real ESP32 device
-app.post('/api/sensor-reading', (req, res) => {
+app.post('/api/sensor-reading', async (req, res) => {
   if (INGEST_API_KEY && req.get('X-API-Key') !== INGEST_API_KEY) {
     return res.status(401).json({ error: 'Invalid or missing X-API-Key' });
   }
@@ -366,12 +376,20 @@ app.post('/api/sensor-reading', (req, res) => {
   recomputeStatus(sensor);
 
   const pct = fillPct(sensor);
-  sensor.history.push({
-    ts:         Date.now(),
-    distanceCm: Math.round(sensor.distanceCm * 10) / 10,
-    fillPct:    Math.round(pct * 10) / 10
-  });
-  if (sensor.history.length > 288) sensor.history.shift();
+
+  // save sensor telemetry history to mongodb
+  try {
+    const telemetryCollection = mongoDb.collection('telemetry');
+    await telemetryCollection.insertOne({
+      sensorId: sensor.id,
+      distanceCm: sensor.distanceCm,
+      fillPct: Math.round(pct * 10) / 10,
+      status: sensor.status,
+      timestamp: new Date()
+    });
+  } catch (err) {
+    console.error("Error during database saving:", err);
+  }
 
   addLog(`Live reading: ${sensor.id} → ${Math.round(sensor.distanceCm)}cm (${Math.round(pct)}% fill)`,
          pct > ALERT_THRESHOLD ? 'critical' : 'success');
