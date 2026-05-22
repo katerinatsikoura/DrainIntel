@@ -2,11 +2,6 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>DrainIntel Enterprise - Live Network View</title>
-<script>
-        /* Auth gate — redirect to login if there is no session token.
-           Runs before render to avoid a flash of protected content. */
-        if (!localStorage.getItem('di_token')) location.replace('onboarding_unified_centered_login.html');
-    </script>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
@@ -137,7 +132,7 @@
         .marker-glow-blue { filter: drop-shadow(0 0 6px #00e5ff); }
     </style>
 </head>
-<body class="font-body-md overflow-hidden" data-page="live-network" data-sensor-id="INFRA-092">
+<body class="bg-background text-on-background font-body-md min-h-screen overflow-hidden">
 <!-- Side Navigation -->
 <aside class="fixed left-0 top-0 h-screen w-64 flex flex-col py-6 z-40 bg-[#020617] border-r border-white/5">
     <div class="px-6 mb-8">
@@ -172,7 +167,7 @@
 <!-- Main Content Area -->
 <main class="ml-64 h-screen relative flex flex-col">
 <!-- Top Navigation Bar -->
-<header class="flex justify-between items-center h-16 w-full px-container-margin sticky top-0 z-50 bg-[#020617]/80 backdrop-blur-xl border-b border-white/10">
+<header class="flex justify-between items-center h-16 w-full px-container-margin sticky top-0 z-50 bg-[#080b1b]/95 backdrop-blur-xl border-b border-white/10 shadow-lg">    
     <div class="flex items-center gap-6">
         <h2 class="font-headline-md text-headline-md font-bold tracking-tight text-primary-fixed-dim border-b-2 border-primary-fixed-dim pb-1">
             Network Map
@@ -322,7 +317,7 @@
             const logout = document.getElementById('di-logout');
             if (logout) logout.addEventListener('click', () => {
                 localStorage.removeItem('di_token');
-                location.replace('onboarding_unified_centered_login.html');
+                location.replace('onboarding_login.html');
             });
         });
     </script>

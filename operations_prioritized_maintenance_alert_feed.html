@@ -126,35 +126,6 @@
       </script>
 </head>
 <body class="bg-background text-on-background font-body-md min-h-screen overflow-hidden">
-<!-- TopNavBar -->
-<header class="flex justify-between items-center h-16 w-full px-container-margin sticky top-0 z-50 bg-[#020617]/80 backdrop-blur-xl border-b border-white/10">
-    <div class="flex items-center gap-6">
-        <h2 class="font-headline-md text-headline-md font-bold tracking-tight text-primary-fixed-dim border-b-2 border-primary-fixed-dim pb-1">
-            Operations
-        </h2>
-    </div>
-    
-    <div class="flex items-center gap-4">
-        <div id="di-connection-badge" class="flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full border border-white/5">
-            <span class="w-2 h-2 rounded-full bg-on-surface-variant animate-pulse"></span>
-            <span class="font-label-md text-label-md text-on-surface-variant">CONNECTING…</span>
-        </div>
-        <div class="flex items-center gap-1">
-            <button class="p-2 text-on-surface-variant hover:bg-white/5 rounded-full transition-colors relative">
-                <span class="material-symbols-outlined">notifications</span>
-                <span class="absolute top-1 right-1 w-2 h-2 bg-secondary rounded-full"></span>
-            </button>
-            <button class="p-2 text-on-surface-variant hover:bg-white/5 rounded-full transition-colors">
-                <span class="material-symbols-outlined">settings_suggest</span>
-            </button>
-            <button id="di-logout" class="ml-2 flex items-center gap-2 px-3 py-1.5 text-on-surface-variant hover:bg-white/5 rounded-lg transition-colors font-label-md text-label-md">
-                <span class="material-symbols-outlined text-[18px]">logout</span>
-                Logout
-            </button>
-        </div>
-    </div>
-</header>
-<div class="flex h-[calc(100vh-64px)] overflow-hidden">
 <!-- SideNavBar -->
 <aside class="fixed left-0 top-0 h-screen w-64 flex flex-col py-6 z-40 bg-[#020617] border-r border-white/5">
     <div class="px-6 mb-8">
@@ -187,8 +158,37 @@
     </div>
 </aside>
 <!-- Main Content Area -->
-<main class="flex-1 ml-64 p-6 overflow-y-auto custom-scrollbar">
-<div class="max-w-[1600px] mx-auto grid grid-cols-12 gap-gutter">
+<main class="ml-64 h-screen relative flex flex-col pb-10">
+<!-- TopNavBar Anchor -->
+<header class="flex justify-between items-center h-16 w-full px-container-margin sticky top-0 z-50 bg-[#080b1b]/95 backdrop-blur-xl border-b border-white/10 shadow-lg">    
+    <div class="flex items-center gap-6">
+        <h2 class="font-headline-md text-headline-md font-bold tracking-tight text-primary-fixed-dim border-b-2 border-primary-fixed-dim pb-1">
+            Operations </h2>
+    </div>
+    
+    <div class="flex items-center gap-4">
+        <div id="di-connection-badge" class="flex items-center gap-2 px-3 py-1 bg-primary-container/10 rounded-full border border-primary-container/20">
+            <span class="w-2 h-2 rounded-full bg-primary-container animate-pulse shadow-[0_0_8px_#00daf3]"></span>
+            <span class="font-label-md text-label-md text-primary-container">System: Normal</span>
+        </div>
+        
+        <div class="flex items-center gap-1">
+            <button class="p-2 text-on-surface-variant hover:bg-white/5 rounded-full transition-colors relative">
+                <span class="material-symbols-outlined">notifications</span>
+                <span class="absolute top-1 right-1 w-2 h-2 bg-secondary rounded-full"></span>
+            </button>
+            <button class="p-2 text-on-surface-variant hover:bg-white/5 rounded-full transition-colors">
+                <span class="material-symbols-outlined">settings_suggest</span>
+            </button>
+            <button id="di-logout" class="ml-2 flex items-center gap-2 px-3 py-1.5 text-on-surface-variant hover:bg-white/5 rounded-lg transition-colors font-label-md text-label-md">
+                <span class="material-symbols-outlined text-[18px]">logout</span>
+                Logout
+            </button>
+        </div>
+    </div>
+</header>
+<div class="flex h-[calc(100vh-64px)] overflow-hidden">
+<div class="max-w-[1600px] mx-auto grid grid-cols-12 gap-gutter mt-6">
 <!-- Main Data Table -->
 <div class="col-span-12 lg:col-span-9 space-y-gutter">
 <h2 class="font-headline-sm text-headline-sm font-bold text-on-surface mb-4 px-2">Maintenance List</h2><div class="glass-panel rounded-lg overflow-hidden border border-white/5">
@@ -334,7 +334,7 @@
 </div>
 </div>
 <!-- Right Sidebar: Alert History Feed -->
-<div class="col-span-12 lg:col-span-3">
+<div class="col-span-12 lg:col-span-3 flex flex-col overflow-hidden">
 <div class="glass-panel rounded-lg h-full flex flex-col border border-white/5 bg-surface-container-low/40">
 <div class="p-4 border-b border-white/10 flex items-center justify-between">
 <h3 class="font-label-md text-label-md font-bold text-on-surface uppercase tracking-widest">Alert History Feed</h3>
@@ -436,13 +436,13 @@
 
 
 
-
+</div>
 </div>
 </div>
 </div>
 </div>
 </main>
-</div>
+
 <script>
     // Real-time log injection simulation
     const logsContainer = document.getElementById('logs-container');
