@@ -9,7 +9,7 @@
 <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #121212;
+            background-color: #020617;
             color: #e5e2e1;
             overflow: hidden;
         }
@@ -89,7 +89,7 @@
                         "surface": "#131313",
                         "on-background": "#e5e2e1",
                         "error": "#ffb4ab",
-                        "background": "#131313",
+                        "background": "#020617",
                         "surface-container-high": "#2a2a2a",
                         "primary": "#c3f5ff",
                         "on-surface-variant": "#bac9cc"
@@ -137,64 +137,64 @@
 </head>
 <body class="bg-background text-on-surface h-screen flex flex-col overflow-hidden">
 <!-- Top Navigation Bar (Shared Component Strategy) -->
-<header class="flex justify-between items-center h-16 w-full px-container-margin sticky top-0 z-50 bg-surface/80 backdrop-blur-xl border-b border-white/10">
-<div class="flex items-center gap-6">
-<span class="font-headline-md text-headline-md font-bold tracking-tight text-primary-fixed-dim">DrainIntel Enterprise</span>
-<div class="hidden md:flex items-center gap-base px-sm py-xs bg-surface-container rounded border border-outline-variant">
-<span class="material-symbols-outlined text-primary-fixed-dim text-[18px]">search</span>
-<input class="bg-transparent border-none focus:ring-0 text-label-md font-label-md w-64 placeholder:text-on-surface-variant" placeholder="Search operations..." type="text">
-</div>
-</div>
-<div class="flex items-center gap-md">
-<div class="flex items-center gap-sm px-sm py-xs bg-primary-container/10 border border-primary-container/20 rounded-full">
-<div class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></div>
-<span class="font-label-md text-label-md text-primary-container">All Systems Normal</span>
-</div>
-<div class="flex items-center gap-sm">
-<button class="material-symbols-outlined text-on-surface-variant hover:text-on-surface transition-colors">notifications</button>
-<button class="material-symbols-outlined text-on-surface-variant hover:text-on-surface transition-colors">settings_suggest</button>
-<div class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant">
-
-</div>
-</div>
-</div>
+<header class="flex justify-between items-center h-16 w-full px-container-margin sticky top-0 z-50 bg-[#020617]/80 backdrop-blur-xl border-b border-white/10">
+    <div class="flex items-center gap-6">
+        <h2 class="font-headline-md text-headline-md font-bold tracking-tight text-primary-fixed-dim border-b-2 border-primary-fixed-dim pb-1">
+            Workforce Management
+        </h2>
+    </div>
+    
+    <div class="flex items-center gap-4">
+        <div id="di-connection-badge" class="flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full border border-white/5">
+            <span class="w-2 h-2 rounded-full bg-on-surface-variant animate-pulse"></span>
+            <span class="font-label-md text-label-md text-on-surface-variant">CONNECTING…</span>
+        </div>
+        <div class="flex items-center gap-1">
+            <button class="p-2 text-on-surface-variant hover:bg-white/5 rounded-full transition-colors relative">
+                <span class="material-symbols-outlined">notifications</span>
+                <span class="absolute top-1 right-1 w-2 h-2 bg-secondary rounded-full"></span>
+            </button>
+            <button class="p-2 text-on-surface-variant hover:bg-white/5 rounded-full transition-colors">
+                <span class="material-symbols-outlined">settings_suggest</span>
+            </button>
+            <button id="di-logout" class="ml-2 flex items-center gap-2 px-3 py-1.5 text-on-surface-variant hover:bg-white/5 rounded-lg transition-colors font-label-md text-label-md">
+                <span class="material-symbols-outlined text-[18px]">logout</span>
+                Logout
+            </button>
+        </div>
+    </div>
 </header>
 <div class="flex flex-1 overflow-hidden">
 <!-- Side Navigation Bar (Shared Component Strategy) -->
-<aside class="fixed left-0 top-0 h-screen w-64 flex flex-col py-6 z-40 bg-surface-container border-r border-white/5">
-<div class="px-container-margin mb-xl">
-<div class="flex items-center gap-sm">
-<span class="material-symbols-outlined text-primary-fixed-dim text-[32px]">waves</span>
-<div>
-<div class="font-headline-sm text-headline-sm font-black text-primary-fixed-dim leading-none">DrainIntel</div>
-<div class="font-label-md text-label-md text-on-surface-variant opacity-60">Enterprise Suite</div>
-</div>
-</div>
-</div>
-<nav class="flex-1 space-y-base">
-<a class="flex items-center gap-3 text-on-surface-variant hover:text-on-surface px-4 py-3 mx-2 transition-all hover:bg-white/5" href="network_view_with_analytics_deep_link.html">
-<span class="material-symbols-outlined">map</span>
-<span class="font-label-md text-label-md">Map</span>
-</a>
-<a class="flex items-center gap-3 text-on-surface-variant hover:text-on-surface px-4 py-3 mx-2 transition-all hover:bg-white/5" href="operations_prioritized_maintenance_alert_feed.html">
-<span class="material-symbols-outlined">settings_input_component</span>
-<span class="font-label-md text-label-md">Operations</span>
-</a>
-<a class="flex items-center gap-3 bg-primary-container text-on-primary-container rounded-lg px-4 py-3 mx-2 shadow-[0_0_12px_rgba(0,229,255,0.2)]" href="workforce_athens_sector_control.html">
-<span class="material-symbols-outlined">engineering</span>
-<span class="font-label-md text-label-md font-bold">Workforce</span>
-</a>
-<a class="flex items-center gap-3 text-on-surface-variant hover:text-on-surface px-4 py-3 mx-2 transition-all hover:bg-white/5" href="historical_data_mitigation_analytics.html">
-<span class="material-symbols-outlined">query_stats</span>
-<span class="font-label-md text-label-md">Analytics</span>
-</a>
-</nav>
-<div class="px-2 mt-auto">
-<button class="w-full flex items-center justify-center gap-2 bg-error-container text-on-error-container font-bold py-3 rounded-lg hover:opacity-90 transition-opacity">
-<span class="material-symbols-outlined">emergency_home</span>
-<span class="font-label-md text-label-md">Report Incident</span>
-</button>
-</div>
+<aside class="fixed left-0 top-0 h-screen w-64 flex flex-col py-6 z-40 bg-[#020617] border-r border-white/5">
+    <div class="px-6 mb-8">
+        <h1 class="font-headline-sm text-headline-sm font-black text-primary-fixed-dim">DrainIntel</h1>
+        <p class="font-label-md text-label-md text-on-surface-variant opacity-70">Enterprise Suite</p>
+    </div>
+    <nav class="flex-1 space-y-2">
+        <a class="flex items-center gap-3 text-on-surface-variant hover:text-on-surface hover:bg-white/5 rounded-lg px-4 py-3 mx-2 transition-all" href="network_view_with_analytics_deep_link.html">
+            <span class="material-symbols-outlined">map</span>
+            <span class="font-label-md text-label-md font-bold">Network Map</span>
+        </a>
+        <a class="flex items-center gap-3 text-on-surface-variant hover:text-on-surface hover:bg-white/5 rounded-lg px-4 py-3 mx-2 transition-all" href="operations_prioritized_maintenance_alert_feed.html">
+            <span class="material-symbols-outlined">settings_input_component</span>
+            <span class="font-label-md text-label-md">Operations</span>
+        </a>
+        <a class="flex items-center gap-3 bg-primary-container text-on-primary-container rounded-lg px-4 py-3 mx-2 shadow-[0_0_12px_rgba(0,229,255,0.2)]" href="workforce_athens_sector_control.html">
+            <span class="material-symbols-outlined">engineering</span>
+            <span class="font-label-md text-label-md">Workforce</span>
+        </a>
+        <a class="flex items-center gap-3 text-on-surface-variant hover:text-on-surface hover:bg-white/5 rounded-lg px-4 py-3 mx-2 transition-all" href="historical_data_mitigation_analytics.html">
+            <span class="material-symbols-outlined">query_stats</span>
+            <span class="font-label-md text-label-md">Analytics</span>
+        </a>
+    </nav>
+    <div class="mt-auto px-4 space-y-2">
+        <button class="w-full flex items-center justify-center gap-2 bg-error-container text-on-error-container py-3 rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity">
+            <span class="material-symbols-outlined text-[18px]">report_problem</span>
+            Report Incident
+        </button>
+    </div>
 </aside>
 <!-- Main Content Area -->
 <main class="ml-64 flex-1 flex flex-col overflow-hidden relative">
