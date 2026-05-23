@@ -248,7 +248,7 @@
 <div class="flex justify-between items-start mb-base">
 <div>
 <div class="font-label-md text-label-md text-primary-fixed-dim font-bold mb-xs">ROUTINE • #WO-7725</div>
-<h3 class="font-headline-sm text-headline-sm">Sensor Recalibration: Sector B-04 (Peristeri)</h3>
+<h3 class="font-headline-sm text-headline-sm">Sensor Recalibration: Sector B-04 (Exarcheia)</h3>
 </div>
 <div class="flex items-center gap-2 px-3 py-1 bg-surface-container-highest text-on-surface-variant rounded-full border border-outline-variant">
 <span class="font-label-md text-label-md font-bold uppercase">Scheduled</span>
@@ -288,7 +288,7 @@
 <div class="flex justify-between items-start mb-base">
 <div>
 <div class="font-label-md text-label-md text-on-surface-variant font-bold mb-xs">MAINTENANCE • #WO-7730</div>
-<h3 class="font-headline-sm text-headline-sm">Debris &amp; Leaf Removal: Inlet A-45 (Glyfada)</h3>
+<h3 class="font-headline-sm text-headline-sm">Debris &amp; Leaf Removal: Inlet A-45 (Kolonaki)</h3>
 </div>
 <div class="flex items-center gap-2 px-3 py-1 bg-primary-container/10 text-primary-container rounded-full border border-primary-container/20">
 <span class="font-label-md text-label-md font-bold uppercase">Assigned</span>
@@ -327,36 +327,38 @@
 </div>
 <!-- Real-Time Sensor Loop -->
 <div class="glass-panel rounded-xl p-md flex flex-col gap-md">
-<div class="flex items-center justify-between">
-<h3 class="font-headline-sm text-headline-sm">Telemetry Loop</h3>
-<span class="flex h-2 w-2 rounded-full bg-primary-container"></span>
-</div>
-<div class="space-y-sm">
-<!-- Sensor 1 -->
-<div class="flex items-center justify-between p-sm bg-surface-container-low rounded border border-outline-variant">
-<div class="flex items-center gap-sm">
-<span class="material-symbols-outlined text-primary-fixed-dim">water_drop</span>
-<span class="font-label-md text-label-md">Water Level</span>
-</div>
-<span class="font-mono-data text-mono-data font-bold text-primary-fixed-dim">0% VERIFIED</span>
-</div>
-<!-- Sensor 2 -->
-<div class="flex items-center justify-between p-sm bg-surface-container-low rounded border border-outline-variant">
-<div class="flex items-center gap-sm">
-<span class="material-symbols-outlined text-secondary-fixed">gas_meter</span>
-<span class="font-label-md text-label-md">Methane Concentration</span>
-</div>
-<span class="font-mono-data text-mono-data font-bold text-secondary-fixed">2.4 PPM (Safe)</span>
-</div>
-<!-- Sensor 3 -->
-<div class="flex items-center justify-between p-sm bg-surface-container-low rounded border border-outline-variant">
-<div class="flex items-center gap-sm">
-<span class="material-symbols-outlined text-primary-fixed-dim">door_front</span>
-<span class="font-label-md text-label-md">Manhole Status</span>
-</div>
-<span class="font-mono-data text-mono-data font-bold text-primary-container">OPEN (System Active)</span>
-</div>
-</div>
+    <div class="flex items-center justify-between">
+        <h3 class="font-headline-sm text-headline-sm">Telemetry Loop</h3>
+        <span class="flex h-2 w-2 rounded-full bg-primary-container animate-pulse"></span>
+    </div>
+    <div class="space-y-sm">
+        
+        <div class="flex items-center justify-between p-sm bg-surface-container-low rounded border border-outline-variant">
+            <div class="flex items-center gap-sm">
+                <span class="material-symbols-outlined text-primary-fixed-dim">water_drop</span>
+                <span class="font-label-md text-label-md">INFRA-092 Depth</span>
+            </div>
+            <span id="di-live-water" class="font-mono-data text-mono-data font-bold text-primary-fixed-dim transition-colors duration-300">
+                Syncing...
+            </span>
+        </div>
+        
+        <div class="flex items-center justify-between p-sm bg-surface-container-low rounded border border-outline-variant">
+            <div class="flex items-center gap-sm">
+                <span class="material-symbols-outlined text-secondary-fixed">gas_meter</span>
+                <span class="font-label-md text-label-md">Methane Concentration</span>
+            </div>
+            <span class="font-mono-data text-mono-data font-bold text-secondary-fixed">2.4 PPM (Safe)</span>
+        </div>
+        
+        <div class="flex items-center justify-between p-sm bg-surface-container-low rounded border border-outline-variant">
+            <div class="flex items-center gap-sm">
+                <span class="material-symbols-outlined text-primary-fixed-dim">door_front</span>
+                <span class="font-label-md text-label-md">Manhole Status</span>
+            </div>
+            <span class="font-mono-data text-mono-data font-bold text-primary-container">OPEN (System Active)</span>
+        </div>
+    </div>
 </div>
 <!-- Primary Action Button -->
 <div class="mt-auto">
@@ -389,6 +391,53 @@
                 }
             });
         }, 3000);
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DrainIntel GIS Interface Initialized');
+            const markers = document.querySelectorAll('.marker-glow-blue, .marker-glow-orange, .marker-glow-red');
+            markers.forEach(marker => {
+                marker.addEventListener('mouseenter', () => { marker.classList.add('scale-110'); });
+                marker.addEventListener('mouseleave', () => { marker.classList.remove('scale-110'); });
+            });
+
+            // Logout — clear the session token and return to login.
+            const logout = document.getElementById('di-logout');
+            if (logout) logout.addEventListener('click', () => {
+                localStorage.removeItem('di_token');
+                location.replace('onboarding_login.html');
+            });
+
+            // Fetch Live Telemetry from MongoDB for Workforce
+            async function updateWorkforceTelemetry() {
+                try {
+                    const response = await fetch('/api/historical/INFRA-092');
+                    if (!response.ok) return;
+                    
+                    const data = await response.json();
+                    
+                    if (data && data.history && data.history.length > 0) {
+                        const latest = data.history[0]; 
+                        const waterEl = document.getElementById('di-live-water');
+                        
+                        if (waterEl) {
+                            waterEl.innerHTML = `${latest.distanceCm} cm <span class="text-[10px] opacity-70">LIVE</span>`;
+                            
+                            waterEl.classList.remove('text-primary-fixed-dim');
+                            waterEl.classList.add('text-white');
+                            setTimeout(() => {
+                                waterEl.classList.remove('text-white');
+                                waterEl.classList.add('text-primary-fixed-dim');
+                            }, 500);
+                        }
+                    }
+                } catch (err) {
+                    console.log("Waiting for sensor data...");
+                }
+            }
+
+            updateWorkforceTelemetry();
+            setInterval(updateWorkforceTelemetry, 5000);
+        });
     </script>
 
 
