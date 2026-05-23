@@ -124,7 +124,7 @@ const db = {
       // in cm from the HC-SR04 face down to the bottom of the manhole/tank.
       id: 'INFRA-092', sector: 'U-01', location: 'University Test Rig',
       lat: 37.9680, lng: 23.7650,
-      maxDepthCm: 100, distanceCm: 100,   // distanceCm = maxDepthCm → 0% fill (empty)
+      maxDepthCm: 18, distanceCm: 18,   // distanceCm = maxDepthCm → 0% fill (empty)
       batteryPct: 100, signalDbm: -50, lastPulse: Date.now(),
       status: 'normal', history: []
     }
@@ -366,35 +366,6 @@ app.get('/api/sensors/:id', (req, res) => {
   res.json(enrichSensor(s));
 });
 
-// GET /api/historical/:id - sensor history
-app.get('/api/historical/:id', async (req, res) => {
-  const sensorId = req.params.id;
-  const s = db.sensors.find(x => x.id === sensorId);
-  if (!s) return res.status(404).json({ error: 'Not found' });
-
-  // 1. Αν ο αισθητήρας είναι πραγματικός και έχει στείλει δεδομένα, διαβάζουμε από τη MongoDB
-  if (s.isReal) {
-    try {
-      const telemetryCollection = mongoDb.collection('telemetry');
-      
-      const history = await telemetryCollection
-        .find({ sensorId: sensorId })
-        .sort({ timestamp: -1 })
-        .limit(150)
-        .toArray();
-
-      // Αντιστρέφουμε τη σειρά για τη σωστή ροή του γραφήματος (παλιά αριστερά -> νέα δεξιά)
-      return res.json({ sensorId: s.id, sector: s.sector, history: history.reverse() });
-    } catch (err) {
-      console.error("Σφάλμα ανάγνωσης ιστορικού από MongoDB:", err);
-      return res.status(500).json({ error: 'Could not fetch history from database' });
-    }
-  } 
-  
-  // 2. Αν είναι ακόμα σε κατάσταση προσομοίωσης, επιστρέφουμε το τοπικό ιστορικό του server
-  return res.json({ sensorId: s.id, sector: s.sector, history: s.history });
-});
-
 // ════════════════════════════════════════════════════════════
 // REAL SENSOR INGEST
 // ESP32 hardware POSTs live readings here. Body: { sensorId, distanceCm }.
@@ -451,6 +422,32 @@ app.post('/api/sensor-reading', async (req, res) => {
   broadcast();
 
   res.json(enrichSensor(sensor));
+});
+
+// GET /api/historical/:id - sensor history
+app.get('/api/historical/:id', async (req, res) => {
+  const sensorId = req.params.id;
+  const s = db.sensors.find(x => x.id === sensorId);
+  if (!s) return res.status(404).json({ error: 'Not found' });
+
+  if (s.isReal) {
+    try {
+      const telemetryCollection = mongoDb.collection('telemetry');
+      
+      const history = await telemetryCollection
+        .find({ sensorId: sensorId })
+        .sort({ timestamp: -1 })
+        .limit(150)
+        .toArray();
+
+      return res.json({ sensorId: s.id, sector: s.sector, history: history.reverse() });
+    } catch (err) {
+      console.error("Error fetching history from database:", err);
+      return res.status(500).json({ error: 'Could not fetch history from database' });
+    }
+  } 
+  
+  return res.json({ sensorId: s.id, sector: s.sector, history: s.history });
 });
 
 // GET /api/network-stats
