@@ -566,10 +566,8 @@ wss.on('connection', (ws) => {
 // START
 // ════════════════════════════════════════════════════════════
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server is running on port ${PORT}`);
-});
-server.listen(PORT, () => {
+
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`\n🚀 DrainIntel Backend running at http://localhost:${PORT}`);
   console.log(`📡 WebSocket available at ws://localhost:${PORT}`);
   console.log(`\nAPI Endpoints:`);
