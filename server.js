@@ -21,9 +21,62 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname)); // serves HTML files
 
+// ════════════════════════════════════════════════════════════
+// CLEAN URL ROUTING — serve .html files without .html extension
+// (e.g., /analytics serves analytics.html, /operations serves operations.html)
+// ════════════════════════════════════════════════════════════
+app.use((req, res, next) => {
+  // Skip if request has a file extension or is an API route
+  if (req.path.includes('.') || req.path.startsWith('/api') || req.path === '/') {
+    return next();
+  }
+  
+  const filePath = path.join(__dirname, `${req.path}.html`);
+  if (fs.existsSync(filePath)) {
+    return res.sendFile(filePath);
+  }
+  
+  next();
+});
+
 // Landing page — serve the splash screen at "/" directly (no redirect, URL stays "/")
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'onboarding_splash_screen.html'));
+});
+
+// ════════════════════════════════════════════════════════════
+// CLEAN URL ROUTE ALIASES
+// ════════════════════════════════════════════════════════════
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'onboarding_login.html'));
+});
+
+app.get('/register', (req, res) => {
+  res.sendFile(path.join(__dirname, 'onboarding_registration.html'));
+});
+
+app.get('/municipality', (req, res) => {
+  res.sendFile(path.join(__dirname, 'onboarding_municipality_select.html'));
+});
+
+app.get('/success', (req, res) => {
+  res.sendFile(path.join(__dirname, 'onboarding_success.html'));
+});
+
+app.get('/network', (req, res) => {
+  res.sendFile(path.join(__dirname, 'network_view_with_analytics_deep_link.html'));
+});
+
+app.get('/operations', (req, res) => {
+  res.sendFile(path.join(__dirname, 'operations_prioritized_maintenance_alert_feed.html'));
+});
+
+app.get('/workforce', (req, res) => {
+  res.sendFile(path.join(__dirname, 'workforce_athens_sector_control.html'));
+});
+
+app.get('/analytics', (req, res) => {
+  res.sendFile(path.join(__dirname, 'historical_data_mitigation_analytics.html'));
 });
 
 // ════════════════════════════════════════════════════════════
