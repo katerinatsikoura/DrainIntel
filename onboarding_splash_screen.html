@@ -206,16 +206,6 @@
 <div class="fixed top-0 left-0 w-1/2 h-1/2 bg-primary/5 rounded-full blur-[160px] pointer-events-none -translate-x-1/4 -translate-y-1/4"></div>
 <div class="fixed bottom-0 right-0 w-1/2 h-1/2 bg-secondary/5 rounded-full blur-[160px] pointer-events-none translate-x-1/4 translate-y-1/4"></div>
 <script>
-    // Micro-interaction for mouse-move parallax effect
-    document.addEventListener('mousemove', (e) => {
-      const moveX = (e.clientX - window.innerWidth / 2) / 50;
-      const moveY = (e.clientY - window.innerHeight / 2) / 50;
-      
-      const main = document.querySelector('main');
-      if(main) {
-        main.style.transform = `translate(${moveX}px, ${moveY}px)`;
-      }
-    });
 
     // Ripple effect on button click
     const btn = document.querySelector('button');
