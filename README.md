@@ -44,16 +44,16 @@ frontend (HTML + Tailwind), απλό login/register flow, και firmware για
 ```
 /  →  Splash  →  Login  →  Dashboard
                  │
-                 └─ Register → Setup 1 → 2 → 3 → Success → Dashboard
+                 └─ Register → Municipality Select → Success → Dashboard
 ```
 
 - **Entry point:** `http://localhost:3000/` (σερβίρει το splash screen, χωρίς redirect)
 - **Demo λογαριασμός:** `demo@drainintel.io` / `demo1234`
-- **Dashboard:** `network_view_with_analytics_deep_link.html` — η μόνη σελίδα
+- **Dashboard:** `network` — η μόνη σελίδα
   συνδεδεμένη με **live** δεδομένα (ο αισθητήρας INFRA-092)
 - Sidebar dashboard: Map / Operations / Workforce / Analytics
 
-> ⚠️ Μόνο το **network view** δείχνει live δεδομένα. Οι σελίδες operations /
+> ⚠️ Μόνο το **network** δείχνει live δεδομένα. Οι σελίδες operations /
 > analytics / workforce είναι στατικά UI mockups (design από Google Stitch).
 
 ---
@@ -131,24 +131,6 @@ Firmware: **`drainintel_sensor/drainintel_sensor.ino`** — άνοιξέ το σ
 
 Το ESP32 στέλνει `{ "sensorId": "INFRA-092", "distanceCm": <τιμή> }` κάθε 5 δευτερόλεπτα.
 Με την πρώτη μέτρηση, ο INFRA-092 γίνεται "Live" και η προσομοίωση σταματά γι' αυτόν.
-
----
-
-## Deployment (Render)
-
-1. Κάνε push το repo σε GitHub.
-2. Render → **New → Web Service** → σύνδεσε το repo.
-3. Build command: `npm install` — Start command: `node server.js`
-   (η Render δίνει αυτόματα τη μεταβλητή `PORT`).
-4. *(προαιρετικά)* Environment variable `INGEST_API_KEY` για προστασία του
-   endpoint εισόδου μετρήσεων.
-5. Πάρε το URL: `https://<app>.onrender.com`
-
-**Σημειώσεις:**
-- Το free tier της Render «κοιμάται» μετά από ~15 λεπτά χωρίς traffic — το πρώτο
-  load μετά είναι αργό (~30–60s). Όσο το ESP32 στέλνει κάθε 5s, παραμένει ξύπνιο.
-- Όλα τα δεδομένα είναι in-memory — **χάνονται σε κάθε restart/redeploy**. Ο demo
-  λογαριασμός (`demo@drainintel.io`) υπάρχει πάντα γιατί δημιουργείται στο startup.
 
 ---
 
