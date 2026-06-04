@@ -82,7 +82,7 @@ app.get('/analytics', (req, res) => {
 // ════════════════════════════════════════════════════════════
 // MONGODB ATLAS USER DB
 // ════════════════════════════════════════════════════════════
-const MONGO_URI = process.env.MONGO_URI || "ΒΑΛΕ_ΕΔΩ_ΤΟ_CONNECTION_STRING_SOU"; 
+const MONGO_URI = process.env.MONGO_URI; 
 let dbClient, mongoDb;
 
 async function connectDB() {
